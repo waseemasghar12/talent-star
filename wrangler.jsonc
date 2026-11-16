@@ -1,0 +1,18 @@
+// Starla relay — Cloudflare Worker configuration. Matches the live deployment of 16 Nov 2026.
+// IMPORTANT: run Wrangler only from inside this "relay" folder. Running "wrangler deploy" from the website
+// folder with this Worker name replaces the relay with a copy of the website (this happened on 16 Nov 2026).
+// The Gemini key is a Worker secret (GEMINI_API_KEY). It is not in this file and must never be committed.
+{
+  "name": "starla-gemini-relay",
+  "main": "starla-gemini-relay.js",
+  "compatibility_date": "2025-09-01",
+  "account_id": "66754f5d2acdbcba01ef2f7dda3e4b06",
+  "workers_dev": true,
+  "preview_urls": false,
+  "keep_vars": false,
+  "vars": {
+    "GEMINI_MODEL": "gemini-3.5-flash",
+    "ALLOWED_ORIGINS": "https://waseemasghar12.github.io,https://talent-star.com,https://www.talent-star.com",
+    "RATE_LIMIT_PER_MIN": "20"
+  }
+}
