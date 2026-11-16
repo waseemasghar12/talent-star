@@ -1,0 +1,17 @@
+/* Reference copy of the stylesheet Starla injects into the Botpress webchat v5 shadow root (v100).
+   The live copy is inside index.html (BP_WIDGET_CSS); this file is for review only. */
+/* Injected into the Botpress webchat v5 shadow root (the widget is not an iframe). Class names are the ones shipped in v5 inject.js.
+   ALL WIDTHS (v100)
+     Starla's outer header (logo, title, Bot/AI toggle, minimize, close) ... untouched, it is outside the widget
+     Botpress internal header row ........................................ hidden (duplicate of the outer header)
+     welcome bot-name heading ............................................ hidden (duplicate title)
+     welcome description, starter prompts, messages, composer, attribution  kept
+   PHONES ONLY (host viewport <= 820px, v95 owner decision, unchanged)
+     welcome avatar / logo ............................................... hidden
+   display:none also removes the hidden header's buttons from the tab order. Only spacing that belonged to hidden parts is removed. */
+.bpHeaderContainer { display: none !important; }
+.bpMessageListMarqueeTitle { display: none !important; }
+@media (max-width: 820px) {
+  .bpMessageListMarqueeAvatarContainer { display: none !important; }
+  .bpMessageListMarqueeContainer { padding: 4px 0 10px 0 !important; }
+}
