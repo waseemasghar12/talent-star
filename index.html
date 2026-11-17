@@ -3806,7 +3806,7 @@ body>.bpWebchat,body>#webchat{display:none!important}
 @media(prefers-reduced-motion:reduce){.starla .st-vdot{animation:none!important}}
 /* v95: Star Animation in the two flip cards — same 110×110 box and hover motion as the image it replaces; no gold tint filter (the asset has its own colours) */
 /* v99: Star Animation as a decorative layer behind the Ecosystem & Community card content (transparent artwork, no backdrop) */
-.ftr .eco-card.community>.star-art.eco-star{position:absolute;z-index:0;top:var(--eco-star-y,46%);left:50%;width:min(58%,224px);height:auto;aspect-ratio:1/1;transform:translate(-50%,-50%);opacity:1;filter:none;transition:none;pointer-events:none;-webkit-user-select:none;user-select:none}
+.ftr .eco-card.community>.star-art.eco-star{position:absolute;z-index:0;top:var(--eco-star-y,46%);left:50%;width:min(58%,224px);height:auto;aspect-ratio:1/1;transform:translate(-50%,-50%);opacity:.82;filter:none;transition:none;pointer-events:none;-webkit-user-select:none;user-select:none}
 /* with the job-board block removed, the two remaining blocks sit top and bottom instead of being spread three ways */
 .ftr .eco-grid.eco-squares>.eco-card.sq.eco-tiers{justify-content:flex-start}
 .ftr .eco-squares .sq.eco-tiers .eco-tier-blk:last-of-type{margin-top:auto}
@@ -3847,7 +3847,7 @@ body>.bpWebchat,body>#webchat{display:none!important}
 .starla .st-send[data-state=typed]:hover{box-shadow:0 5px 14px rgba(140,104,26,.5),inset 0 1px 0 rgba(255,250,232,.9)}
 /* --- Footer: eight network widgets, three columns (3 + 3 + 2 centred) --- */
 .ftr .eco-squares .sq.community #eco-social.chan-row{display:grid!important;grid-template-columns:repeat(6,minmax(0,1fr));gap:12px 8px;justify-items:center;align-items:center;width:min(100%,264px);margin:10px auto 0;flex-wrap:initial}
-.ftr .eco-squares .sq.community #eco-social .chan{grid-column:span 2;width:56px!important;height:56px!important;min-height:56px;background:rgba(255,255,255,.94);border-color:rgba(191,154,51,.4);box-shadow:0 3px 10px rgba(10,17,40,.08)}   /* opaque faces keep every icon readable in front of the full-colour star */
+.ftr .eco-squares .sq.community #eco-social .chan{grid-column:span 2;width:56px!important;height:56px!important;min-height:56px;background:rgba(255,255,255,.8);border-color:rgba(191,154,51,.4);box-shadow:0 3px 10px rgba(10,17,40,.08)}   /* opaque faces keep every icon readable in front of the full-colour star */
 .ftr .eco-squares .sq.community #eco-social .chan:nth-last-child(2){grid-column:2 / span 2}
 .ftr .eco-squares .sq.community #eco-social .chan:last-child{grid-column:4 / span 2}
 .ftr .eco-squares .sq.community #eco-social .chan>svg{width:28px;height:28px}
@@ -3892,9 +3892,344 @@ body>.bpWebchat,body>#webchat{display:none!important}
   .starla-launch.st-capsule #starlaBtn:hover{transform:none!important}
 }
 </style>
+
+<style id="v101">
+/* ===== v101: header zigzag sweep · launcher ripple + capsule aura · mobile card patterns (peek / drift / flip grid) ===== */
+/* --- Header: the gold sweep keeps its left-to-right run and gains a shallow, rounded undulation --- */
+.hdr-sweep.run{animation:headerStarlightSweep 8s cubic-bezier(.35,.05,.35,1) forwards,hdrSweepWave 8s linear forwards}
+html[dir=rtl] .hdr-sweep.run{animation-name:headerStarlightSweepRtl,hdrSweepWave}
+@keyframes hdrSweepWave{0%{translate:0 0;animation-timing-function:ease-out}10%{translate:0 -6px;animation-timing-function:ease-in-out}30%{translate:0 6px;animation-timing-function:ease-in-out}50%{translate:0 -6px;animation-timing-function:ease-in-out}70%{translate:0 6px;animation-timing-function:ease-in-out}90%{translate:0 -4px;animation-timing-function:ease-in}100%{translate:0 0}}
+@media(prefers-reduced-motion:reduce){.hdr-sweep,.hdr-sweep.run{animation:none!important;translate:none}}
+
+/* --- Launcher star ripple (decorative, never interactive) --- */
+.ts-ripple{position:fixed;left:0;top:0;width:var(--rs,128px);height:var(--rs,128px);margin:calc(var(--rs,128px) / -2) 0 0 calc(var(--rs,128px) / -2);pointer-events:none;z-index:10000;contain:layout style}
+.ts-ripple i{position:absolute;inset:0;display:block;pointer-events:none}
+.ts-ripple .rg{border-radius:50%;border:2px solid rgba(201,165,58,.95);box-shadow:0 0 14px rgba(214,180,84,.6),inset 0 0 12px rgba(255,226,140,.45);animation:tsRipRing .72s cubic-bezier(.2,.7,.2,1) forwards}
+.ts-ripple .rg.b{border-width:1.5px;border-color:rgba(214,180,84,.7);box-shadow:none;animation-duration:.9s;animation-delay:.08s;opacity:0}
+.ts-ripple .st{background:radial-gradient(circle,rgba(255,246,210,1) 0%,rgba(226,190,92,.9) 36%,rgba(201,165,58,.15) 72%,rgba(201,165,58,0) 80%);-webkit-clip-path:polygon(50% 0,56% 44%,100% 50%,56% 56%,50% 100%,44% 56%,0 50%,44% 44%);clip-path:polygon(50% 0,56% 44%,100% 50%,56% 56%,50% 100%,44% 56%,0 50%,44% 44%);animation:tsRipStar .62s cubic-bezier(.2,.7,.2,1) forwards}
+@keyframes tsRipRing{0%{transform:scale(.3);opacity:1}55%{opacity:.75}100%{transform:scale(1);opacity:0}}
+@keyframes tsRipStar{0%{transform:scale(.25) rotate(0deg);opacity:1}50%{opacity:.8}100%{transform:scale(1) rotate(22deg);opacity:0}}
+@media(max-width:820px){.ts-ripple{--rs:84px}}
+@media(prefers-reduced-motion:reduce){.ts-ripple .rg.b,.ts-ripple .st{display:none}.ts-ripple .rg{animation:tsRipFade .3s ease-out forwards;transform:scale(.7)}@keyframes tsRipFade{0%{opacity:.6}100%{opacity:0}}}
+
+/* --- Desktop capsule: a little narrower, lighter glass, metallic-gold name, slow anticlockwise perimeter aura --- */
+@property --st-aura{syntax:"<angle>";inherits:false;initial-value:0deg}
+@keyframes stAuraCCW{from{--st-aura:360deg}to{--st-aura:0deg}}
+@media(min-width:821px){
+  .starla-launch.st-capsule #starlaBtn,.starla-launch.st-capsule #starlaBtn:hover{padding-inline:6px 15px!important;gap:6px;
+    background:linear-gradient(180deg,rgba(255,255,255,.8) 0%,rgba(248,249,252,.62) 44%,rgba(231,234,242,.56) 100%)!important;border-color:rgba(191,154,51,.5)!important}
+  .starla-launch.st-capsule #starlaBtn>.st-cap-name{min-width:64px;color:#7A5A12;text-shadow:none;
+    background:linear-gradient(180deg,#9A7518 0%,#8E6C1F 30%,#6B4E0E 54%,#8A6817 76%,#7A5A12 100%);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;
+    filter:drop-shadow(0 1px 0 rgba(255,255,255,.85)) drop-shadow(0 0 5px rgba(255,255,255,.75))}
+  .starla-launch.st-capsule #starlaBtn::after{content:"";position:absolute;inset:0;border-radius:inherit;padding:2px;z-index:2;pointer-events:none;
+    background:conic-gradient(from var(--st-aura),rgba(214,180,84,0) 0deg,rgba(214,180,84,0) 292deg,rgba(214,180,84,.5) 326deg,rgba(255,243,200,.95) 344deg,rgba(214,180,84,.45) 354deg,rgba(214,180,84,0) 360deg);
+    -webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);-webkit-mask-composite:xor;mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);mask-composite:exclude;
+    filter:drop-shadow(0 0 3px rgba(214,180,84,.55));animation:stAuraCCW 14s linear infinite}
+  /* the aura now carries the perimeter motion, so the logo's outer particles step back a little */
+  .st-cap-orb.o2 i{opacity:.55}.st-cap-orb.o3 i{opacity:.6}
+}
+@media(prefers-reduced-motion:reduce){.starla-launch.st-capsule #starlaBtn::after{animation:none!important;opacity:.55}}
+@media(forced-colors:active){.starla-launch.st-capsule #starlaBtn>.st-cap-name{-webkit-text-fill-color:currentColor;background:none}}
+
+/* ================= Mobile-only card patterns (the project's breakpoint: 820px and below) ================= */
+.ts-nav,.ts-flip-btn{display:none}
+@media(max-width:820px){
+  /* --- Pattern A: one card at a time with a next-card peek --- */
+  .ts-peek{display:flex!important;flex-wrap:nowrap!important;align-items:stretch;gap:12px!important;grid-template-columns:none!important;overflow-x:auto!important;overflow-y:hidden;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;overscroll-behavior-x:contain;scrollbar-width:none;
+    margin-inline:calc(-1 * var(--pk-b,24px))!important;padding:6px var(--pk-b,24px) 14px!important;scroll-padding-inline:var(--pk-b,24px);max-width:none;width:auto}
+  .ts-peek.wrap{margin-inline:auto!important}
+  .ts-peek::-webkit-scrollbar{display:none}
+  .ts-peek>*{flex:0 0 min(calc(100vw - 78px),380px)!important;width:auto!important;min-width:0!important;max-width:none!important;margin:0!important;scroll-snap-align:start;scroll-snap-stop:always;height:auto}
+  .ts-peek>.rv,.js .ts-peek>.rv{opacity:1!important;transform:none!important}
+  .ts-peek:focus-visible{outline:2px solid #BF9A33;outline-offset:2px}
+  .eco-grid.ts-peek{--pk-b:20px}
+  .eco-grid.ts-peek>.eco-card{aspect-ratio:auto}
+  .ts-peek>.ct-map-col{display:flex;flex-direction:column;justify-content:center}
+  /* shared pager: previous / "2 / 6" / next — sits outside the cards (and outside the map) */
+  .ts-nav{display:flex;align-items:center;justify-content:center;gap:6px;margin:2px auto 0;color:#0A1128;font-size:.8rem;font-weight:700;letter-spacing:.04em}
+  .ts-nav button{width:44px;height:44px;min-height:44px;padding:0;border:0;background:transparent;color:inherit;cursor:pointer;display:grid;place-items:center;border-radius:50%;-webkit-tap-highlight-color:transparent}
+  .ts-nav button i{display:grid;place-items:center;width:32px;height:32px;border-radius:50%;border:1.5px solid rgba(191,154,51,.6);background:rgba(255,255,255,.85);color:#0A1128;font-style:normal;font-size:1rem;line-height:1;transition:transform .2s ease,background .2s ease}
+  .ts-nav button:active i{transform:scale(.92)}
+  .ts-nav button:focus-visible{outline:2px solid #0A1128;outline-offset:-4px}
+  .ts-nav button[disabled]{opacity:.35;cursor:default}
+  html[dir=rtl] .ts-nav button i{transform:scaleX(-1)}
+  .ts-nav .ts-pos{min-width:46px;text-align:center;font-variant-numeric:tabular-nums}
+  .ts-nav.wrap-nav{margin-top:-6px}
+
+  /* --- Pattern B: slow drifting row of small portrait cards ("Red Salute") --- */
+  .ts-drift{display:flex!important;flex-wrap:nowrap!important;align-items:stretch;gap:10px!important;grid-template-columns:none!important;overflow-x:auto!important;overflow-y:hidden;scrollbar-width:none;-webkit-overflow-scrolling:touch;overscroll-behavior-x:contain;margin-inline:-24px!important;padding:6px 24px 12px!important;column-gap:10px!important}
+  .ts-drift::-webkit-scrollbar{display:none}
+  .ts-drift>*{flex:0 0 clamp(128px,38vw,166px)!important;min-width:0!important;margin:0!important}
+  .ts-drift>.rv,.js .ts-drift>.rv{opacity:1!important;transform:none!important}
+  .sv-ind-grid.ts-drift>.sv-ind{min-height:0;aspect-ratio:3/4;border-radius:18px}
+  .sv-ind-grid.ts-drift .sv-ind-lbl{inset-inline:10px;bottom:10px;font-size:.8rem;line-height:1.25;align-items:flex-end}
+  .cj-values.ts-drift>.ab-value{border-radius:18px;padding:14px 12px 16px;min-height:176px}
+  .cj-values.ts-drift>.ab-value h3{font-size:.92rem;line-height:1.25}
+  .cj-values.ts-drift>.ab-value p{font-size:.8rem;line-height:1.45}
+  .ts-nav .ts-pp i{font-size:.72rem;letter-spacing:-.05em}
+  html[dir=rtl] .ts-nav .ts-pp i{transform:none}
+
+  /* --- Pattern C: aligned grid with tap-to-flip and occasional random flips --- */
+  .ts-flipgrid{display:grid!important;grid-template-columns:repeat(6,minmax(0,1fr))!important;grid-auto-rows:1fr;gap:8px!important}
+  .ts-flipgrid>.ab-value{grid-column:span 2;position:relative;margin:0!important;min-height:186px;padding:12px 8px 34px!important;border-radius:14px;display:flex;flex-direction:column;align-items:center;justify-content:flex-start;text-align:center;cursor:pointer;-webkit-tap-highlight-color:transparent;opacity:1!important}
+  .ts-flipgrid>.ab-value:nth-child(4):nth-last-child(2){grid-column:2 / span 2}
+  .ts-flipgrid>.ab-value:nth-child(5):last-child{grid-column:4 / span 2}
+  .ts-flipgrid>.ab-value h3{font-size:.8rem;line-height:1.25;margin:8px 0 0}
+  .ts-flipgrid>.ab-value p{font-size:.7rem;line-height:1.4;margin:0}
+  .ts-flipgrid>.ab-value .ab-vstar{display:none}
+  .ts-flipgrid>.ab-value h3,.ts-flipgrid>.ab-value p{overflow-wrap:anywhere;max-width:100%}
+  /* the face that is not showing stays in the accessibility tree; it is only moved out of sight */
+  .ts-flipgrid>.ab-value:not(.is-back)>p,.ts-flipgrid>.ab-value.is-back>h3,.ts-flipgrid>.ab-value.is-back>.ab-vnum{position:absolute!important;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+  .ts-flipgrid>.ab-value.is-back{justify-content:center;background:linear-gradient(160deg,#0E1F44,#071126);border-color:rgba(212,175,55,.55)}
+  .ts-flipgrid>.ab-value.is-back>p{color:#F4F1EA}
+  .ts-flip-btn{display:grid;place-items:center;position:absolute;left:50%;bottom:2px;width:44px;height:30px;margin-left:-22px;padding:0;border:0;background:transparent;color:#8E6C1F;cursor:pointer;font-size:.95rem;line-height:1}
+  .ts-flipgrid>.is-back .ts-flip-btn{color:#EBD89A}
+  .ts-flip-btn:focus-visible{outline:2px solid #BF9A33;outline-offset:-3px;border-radius:10px}
+  .ts-flipgrid>.ab-value.ts-flipping{animation:tsHalfFlip .85s both}
+  @keyframes tsHalfFlip{0%{transform:perspective(700px) rotateY(0deg);animation-timing-function:ease-in}50%{transform:perspective(700px) rotateY(90deg);box-shadow:0 0 0 2px rgba(255,229,143,.9),0 0 22px rgba(212,175,55,.6)}50.01%{transform:perspective(700px) rotateY(-90deg);animation-timing-function:cubic-bezier(.34,1.56,.64,1)}100%{transform:perspective(700px) rotateY(0deg)}}
+  /* enquiry reasons: 2 x 2 grid; a full barrel spin (same timing and rim flare as Home → Industries), no reverse face */
+  #ctIntent.ts-spingrid{display:grid!important;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;width:100%!important;max-width:none!important}
+  #ctIntent.ts-spingrid>.ct-pill{min-width:0;width:100%;margin:0;padding:14px 8px;border-radius:14px;min-height:64px;display:flex;align-items:center;justify-content:center;line-height:1.25}
+  .ts-spin{animation:tsBarrel .85s cubic-bezier(.34,1.56,.64,1) both}
+  @keyframes tsBarrel{0%{transform:perspective(800px) rotateY(0deg)}45%{box-shadow:0 0 0 2px rgba(255,229,143,.9),0 0 24px rgba(212,175,55,.65)}100%{transform:perspective(800px) rotateY(360deg)}}
+
+  /* --- Home → Workforce in action: no filter row on mobile (display:none also removes it from the tab order) --- */
+  #media-filters{display:none!important}
+
+  /* --- Services → How We Work: same arrow as Careers → Application journey --- */
+  #hwTimeline>.hw-flyer{display:none!important}
+  #hwTimeline .hw-dot.flash{animation:none}
+  #hwTimeline .hw-dot{transition:transform .35s cubic-bezier(.34,1.56,.64,1)}
+  #hwTimeline .hw-dot::after{content:"";position:absolute;inset:-4px;border-radius:50%;border:2px solid rgba(212,175,55,.8);opacity:0;transform:scale(.6)}
+  #hwTimeline .hw-dot.ts-repel{transform:scale(1.4);animation:dotWaterRepel .9s ease-out}
+  #hwTimeline .hw-dot.ts-repel::after{animation:dotRipple .9s ease-out}
+}
+@media(min-width:821px){#hwTimeline>.journey-flight-arrow{display:none}}
+@media(prefers-reduced-motion:reduce){
+  .ts-flipgrid>.ab-value.ts-flipping,.ts-spin{animation:none!important}
+  #hwTimeline .hw-dot.ts-repel,#hwTimeline .hw-dot.ts-repel::after{animation:none}
+  .ts-nav .ts-pp{display:none}
+  .ts-peek{scroll-behavior:auto}
+}
+</style>
+
+<style id="v102">
+/* ===== v102 ===== */
+/* --- Starla Bot mode, desktop: the Botpress box kept a 380px floor, so on short windows its composer
+       (text field, attach, emoji, voice) was pushed underneath Starla's footer. Let it shrink with the panel. --- */
+@media(min-width:821px){ #bp-embedded-webchat{min-height:150px!important} }
+
+/* --- Starla connection label: text + gold monochrome icon --- */
+.starla .msg.sys.conn{display:inline-flex;align-items:center;justify-content:center;gap:5px;flex-wrap:wrap}
+.starla .msg.sys.conn .st-conn-i{display:inline-flex;color:#B08A1E;line-height:0}
+.starla .msg.sys.conn .st-conn-ic{display:block;width:14px;height:14px;stroke:#B08A1E;filter:drop-shadow(0 0 2px rgba(212,175,55,.45))}
+.starla .msg.sys.conn .st-conn-v{font-weight:700}
+
+/* --- Shared pager / motion control (used by every carousel) --- */
+.ts-nav{display:flex;align-items:center;justify-content:center;gap:4px;margin:2px auto 0;color:#0A1128;font-size:.8rem;font-weight:700;letter-spacing:.04em}
+.ts-nav[hidden]{display:none}
+.ts-nav button{width:44px;height:44px;min-height:44px;padding:0;border:0;background:transparent;color:inherit;cursor:pointer;display:grid;place-items:center;border-radius:50%;-webkit-tap-highlight-color:transparent}
+.ts-nav button i{display:grid;place-items:center;width:32px;height:32px;border-radius:50%;border:1.5px solid rgba(191,154,51,.6);background:rgba(255,255,255,.85);color:#0A1128;font-style:normal;font-size:1rem;line-height:1;transition:transform .2s ease,background .2s ease}
+.ts-nav button:hover i{background:#fff}
+.ts-nav button:active i{transform:scale(.92)}
+.ts-nav button:focus-visible{outline:2px solid #0A1128;outline-offset:-4px}
+.ts-nav button[disabled]{opacity:.35;cursor:default}
+html[dir=rtl] .ts-nav .prev i,html[dir=rtl] .ts-nav .next i{transform:scaleX(-1)}
+.ts-nav .ts-pos{min-width:46px;text-align:center;font-variant-numeric:tabular-nums}
+.ts-nav.wrap-nav{margin-top:-6px}
+/* compact, discreet motion control: small glyph, full-size tap area */
+.ts-nav .ts-pp{width:40px}
+.ts-nav .ts-pp i{width:22px;height:22px;border-width:1px;border-color:rgba(10,17,40,.28);background:transparent;color:rgba(10,17,40,.62);font-size:.5rem;letter-spacing:-.06em}
+.ts-nav .ts-pp[aria-pressed=true] i{font-size:.56rem;padding-inline-start:1px}
+html[dir=rtl] .ts-nav .ts-pp i{transform:none}
+.ts-nav.ts-mini{justify-content:flex-end;margin-top:-8px;min-height:0}
+.ts-nav.ts-mini .ts-pp{height:36px;min-height:36px}
+@media(prefers-reduced-motion:reduce){ .ts-nav .ts-pp{display:none!important} }
+
+/* --- Home rows (all sizes): Services and Workforce in action --- */
+@media(min-width:821px){
+  .ts-row{display:flex!important;flex-wrap:nowrap!important;grid-template-columns:none!important;gap:18px!important;overflow-x:auto!important;overflow-y:hidden;scroll-snap-type:x mandatory;scrollbar-width:none;overscroll-behavior-x:contain;padding:14px 4px 20px!important;margin-inline:-4px;scroll-padding-inline:4px}
+  .ts-row::-webkit-scrollbar{display:none}
+  .ts-row>*{flex:0 0 calc((100% - 54px) / 3.35)!important;min-width:0!important;margin:0!important;scroll-snap-align:start}
+  .ts-row>.rv,.js .ts-row>.rv{opacity:1!important}
+  .ts-row>.hidden{display:none!important}
+}
+.ts-row:focus-visible{outline:2px solid #BF9A33;outline-offset:2px}
+.ts-moving{scroll-snap-type:none!important}
+#home-services + .reel-dots{display:none!important}
+
+/* --- Home → Why Talent Star: conveyor is JS-driven at every size --- */
+.why.conveyor.js-drive{animation:none!important;touch-action:pan-y;will-change:transform;cursor:grab;-webkit-user-select:none;user-select:none}
+.why.conveyor.js-drive.is-dragging{cursor:grabbing}
+.ts-why-nav{margin-top:6px}
+#whyStage{touch-action:pan-y}
+
+/* --- Home → How engagement works: page curl --- */
+.ts-curl-flap{position:absolute;right:0;bottom:0;width:0;height:0;pointer-events:none;z-index:4;border-top-left-radius:38%;
+  background:linear-gradient(to bottom right,#EFE6CF 0%,#FBF8EF 26%,#FFFFFF 37%,#E4D8B6 46%,rgba(70,52,12,.42) 49.6%,rgba(70,52,12,0) 50%);
+  filter:drop-shadow(-5px -5px 9px rgba(10,17,40,.3))}
+.ts-curl-sheet{position:absolute;inset:0;z-index:3;pointer-events:none;border-radius:inherit;background:linear-gradient(135deg,#FFFFFF 0%,#FAF6EA 55%,#F1E8CF 100%);box-shadow:inset 0 0 0 1px rgba(191,154,51,.35)}
+.steps.focus-mode li.ts-curling{opacity:1!important;visibility:visible!important;transform:none!important;transition:none!important;z-index:3;pointer-events:none}
+.steps li.ts-has-sheet{position:relative}
+@media(min-width:821px){
+  .pipe-rail li.lit .pipe-dot{background:#FFE58F;color:#0A1128;border-color:#FFE58F;box-shadow:0 0 0 6px rgba(212,175,55,.3),0 0 24px rgba(255,214,102,.95),0 0 46px rgba(212,175,55,.55)}
+  .steps li.lit .num{text-shadow:0 0 14px rgba(255,214,102,.95),0 0 26px rgba(212,175,55,.6)}
+}
+
+/* --- Footer cards: heading and subheading aligned to the reading start (left in English, right in Arabic) --- */
+.ftr .eco-card .sq-top,.ftr .eco-card .sq-top .eyebrow,.ftr .eco-card .sq-top h2,.ftr .eco-card .tier-eyebrow,.ftr .eco-card .sq-top .one-line{text-align:start!important;justify-content:flex-start!important;margin-inline:0!important}
+.ftr .eco-card .sq-top{align-items:flex-start!important;justify-items:start!important;align-self:stretch;width:100%}
+
+@media(max-width:820px){
+  /* cards inside a mobile carousel that are not carousel items (decorative centre emblem, link lines) */
+  #coStage.ts-peek>.co-links,#coStage.ts-peek>.co-core{display:none!important}
+  #coStage.ts-peek{min-height:0!important;height:auto!important}
+  #coStage.ts-peek>.co-card{position:relative!important;inset:auto!important;transform:none!important}
+  .in-grid.ts-peek>.in-card,.lw-grid.ts-peek>.lw-mod{height:auto}
+
+  /* Contact: Our Company / Map — same outer size; the map fills its card */
+  .ts-peek>.ct-map-col{justify-content:stretch!important;align-self:stretch}
+  .ts-peek>.ct-map-col>.ct-map{flex:1 1 auto;display:flex;flex-direction:column;margin:0;height:100%;border-radius:22px;overflow:hidden;background:#0A1128}
+  .ts-peek>.ct-map-col>.ct-map>.ct-map-stage{flex:1 1 auto;min-height:260px;display:flex;align-items:center;justify-content:center;background:#0A1128}
+  .ts-peek>.ct-map-col>.ct-map>.ct-map-stage>.ct-map-svg{width:100%;height:auto;max-height:100%}
+
+  /* Services → Why Talent Star?: three aligned columns, everything on the front, decorative barrel spin */
+  .ts-wiggy{display:grid!important;grid-template-columns:repeat(6,minmax(0,1fr))!important;grid-auto-rows:1fr;gap:8px!important}
+  .ts-wiggy>.ab-value{grid-column:span 2;position:relative;margin:0!important;min-height:0;padding:12px 7px 12px!important;border-radius:14px;display:flex;flex-direction:column;align-items:center;justify-content:flex-start;text-align:center;opacity:1!important;-webkit-tap-highlight-color:transparent}
+  .ts-wiggy>.ab-value:nth-child(4):nth-last-child(2){grid-column:2 / span 2}
+  .ts-wiggy>.ab-value:nth-child(5):last-child{grid-column:4 / span 2}
+  .ts-wiggy>.ab-value h3{font-size:.8rem;line-height:1.25;margin:8px 0 5px}
+  .ts-wiggy>.ab-value p{font-size:.7rem;line-height:1.42;margin:0}
+  .ts-wiggy>.ab-value h3,.ts-wiggy>.ab-value p{overflow-wrap:anywhere;max-width:100%}
+  .ts-wiggy>.ab-value .ab-vstar{display:none}
+
+  /* journey arrows shared by Services, Collaborate and Company Profile */
+  .ts-arrowed>.hw-flyer,.ts-arrowed>.flight-icon{display:none!important}
+  .ts-arrowed .hw-dot.flash{animation:none}
+  .ts-arrowed .hw-dot,.ts-arrowed .cp-step-n{transition:transform .35s cubic-bezier(.34,1.56,.64,1)}
+  .ts-arrowed .hw-dot::after{content:"";position:absolute;inset:-4px;border-radius:50%;border:2px solid rgba(212,175,55,.8);opacity:0;transform:scale(.6)}
+  .ts-arrowed .ts-repel{transform:scale(1.4);animation:dotWaterRepel .9s ease-out}
+  .ts-arrowed .hw-dot.ts-repel::after{animation:dotRipple .9s ease-out}
+  .ts-arrowed .cp-step.hit{animation:none}
+
+  /* consent rows: checkbox, a fixed gap, then the text; wrapped lines stay under the text */
+  label.chk{display:flex!important;flex-direction:row!important;align-items:flex-start!important;gap:10px!important;text-align:start!important}
+  label.chk>input[type=checkbox]{flex:0 0 20px!important;width:20px!important;height:20px!important;min-width:20px!important;min-height:0!important;margin:2px 0 0!important;padding:0!important}
+  label.chk>span{flex:1 1 0;min-width:0;display:block;line-height:1.5}
+
+  /* Contact hero: keep the rider on the camel in frame */
+  .ct-hero::before{background-position:26% 50%!important}
+}
+@media(min-width:821px){ .ts-arrowed>.journey-flight-arrow{display:none} }
+@media(prefers-reduced-motion:reduce){ .ts-arrowed .ts-repel,.ts-arrowed .ts-repel::after{animation:none} .ts-curl-flap,.ts-curl-sheet{display:none!important} }
+</style>
+
+<style id="v103">
+/* ===== v103 ===== */
+/* --- site-wide "Pause moving cards" setting (replaces the per-section pause buttons) --- */
+.ts-motion-wrap{display:inline-flex;align-items:center}
+.ts-motion-btn{font:inherit;cursor:pointer}
+.legalline .ts-motion-btn{display:inline-flex;align-items:center;gap:8px;min-height:44px;padding:6px 12px;border-radius:999px;border:1px solid rgba(191,154,51,.55);background:rgba(255,255,255,.7);color:#0A1128;font-size:.8rem;font-weight:600;line-height:1.2}
+.legalline .ts-motion-btn:hover{background:#fff;border-color:#BF9A33}
+.legalline .ts-motion-btn:focus-visible{outline:3px solid #0A1128;outline-offset:2px}
+.legalline .ts-motion-btn .ts-motion-i{display:inline-grid;place-items:center;width:18px;height:18px;border-radius:50%;border:1px solid rgba(10,17,40,.4);font-size:.46rem;letter-spacing:-.06em;line-height:1}
+.legalline .ts-motion-btn[aria-pressed=true]{background:#0A1128;color:#F4F1EA;border-color:#0A1128}
+.legalline .ts-motion-btn[aria-pressed=true] .ts-motion-i{border-color:rgba(244,241,234,.6);font-size:.5rem;padding-inline-start:1px}
+button.skip.ts-motion-skip{border:0;cursor:pointer;left:auto;right:12px}
+html[dir=rtl] button.skip.ts-motion-skip{right:auto;left:12px}
+@media(prefers-reduced-motion:reduce){ .ts-motion-btn{display:none!important} .ts-motion-wrap{display:none} }
+.ts-why-nav{gap:10px}
+
+/* --- Talent lifecycle, mobile only: Clean Vertical Journey --- */
+@media(max-width:820px){
+  .flow-card.vj{--vj-champagne:#F6EBCB;--vj-gold:#D4AF37;--vj-antique:#B8962E;--vj-bronze:#7A5A12;--vj-navy:#0A1128;position:relative;overflow:hidden;
+    background:linear-gradient(180deg,#FFFDF8 0%,#FBF6E8 58%,#F8F0DC 100%)!important;border-color:rgba(184,150,46,.38)!important}
+  .flow-card.vj::before{content:"";position:absolute;inset:-12px 0;pointer-events:none;z-index:0;opacity:.9;transform:translateY(var(--vj-par,0px));
+    background-image:radial-gradient(circle,rgba(184,150,46,.5) 0 1px,transparent 1.6px),radial-gradient(circle,rgba(212,175,55,.42) 0 1.2px,transparent 1.9px),radial-gradient(circle,rgba(122,90,18,.28) 0 .9px,transparent 1.5px);
+    background-size:132px 148px,196px 172px,88px 104px;background-position:18px 22px,74px 96px,42px 60px}
+  .flow-card.vj>*{position:relative;z-index:1}
+  .flow-card.vj .flow-progress,.flow-card.vj #flowStage,.flow-card.vj #flowMetrics,.flow-card.vj .flow-vrail{display:none!important}
+  .flow-card.vj .flow-head .eyebrow{color:var(--vj-bronze)}
+  .flow-card.vj .flow-head h3{color:var(--vj-navy)}
+  .flow-card.vj #flowStages{display:flex!important;flex-direction:column!important;gap:16px!important;width:auto!important;overflow:visible!important;scroll-snap-type:none!important;transform:none!important;position:relative;margin:14px 0 0;padding:4px 0 4px!important;padding-inline-start:38px!important;list-style:none}
+  /* spine */
+  .flow-card.vj .vj-spine{position:absolute;inset-inline-start:13px;top:var(--vj-top,24px);height:var(--vj-h,0px);width:4px;margin-inline-start:-2px;border-radius:4px;pointer-events:none;
+    background:linear-gradient(180deg,rgba(184,150,46,.22),rgba(184,150,46,.34));box-shadow:0 0 0 1px rgba(255,255,255,.7),0 2px 6px rgba(122,90,18,.14)}
+  .flow-card.vj .vj-fill{position:absolute;inset:0;border-radius:4px;transform-origin:50% 0;transform:scaleY(var(--vj-p,0));background:linear-gradient(180deg,#F6EBCB 0%,#D4AF37 30%,#B8962E 68%,#7A5A12 100%);box-shadow:0 0 8px rgba(212,175,55,.5);transition:transform .35s cubic-bezier(.22,1,.36,1)}
+  .flow-card.vj .vj-cap{position:absolute;left:50%;width:10px;height:10px;margin-left:-5px;border-radius:50%;background:#fff;border:2px solid var(--vj-antique)}
+  .flow-card.vj .vj-cap.a{top:-20px;width:8px;height:8px;margin-left:-4px}
+  .flow-card.vj .vj-cap.z{bottom:-8px;width:12px;height:12px;margin-left:-6px;border-radius:2px;transform:rotate(45deg);background:linear-gradient(135deg,#F6EBCB,#D4AF37)}
+  .flow-card.vj .vj-pt{position:absolute;left:50%;top:0;width:5px;height:5px;margin-left:-2.5px;border-radius:50%;background:radial-gradient(circle,#fff 0 30%,#F6EBCB 50%,rgba(212,175,55,0) 72%);box-shadow:0 0 6px rgba(246,235,203,.95);opacity:0}
+  .flow-card.vj.vj-vis .vj-pt{animation:vjFlow 5.4s linear infinite}
+  .flow-card.vj.vj-vis .vj-pt.t2{animation-delay:1.8s}.flow-card.vj.vj-vis .vj-pt.t3{animation-delay:3.6s}
+  @keyframes vjFlow{0%{transform:translateY(0);opacity:0}8%{opacity:1}90%{opacity:1}100%{transform:translateY(var(--vj-h,300px));opacity:0}}
+  /* stage cards */
+  .flow-card.vj #flowStages>li{position:relative;flex:0 0 auto!important;width:auto!important;min-width:0;margin:0!important;display:grid!important;grid-template-columns:auto minmax(0,1fr);column-gap:12px;row-gap:4px;align-items:start;padding:14px 14px 14px!important;border-radius:18px;scroll-snap-align:none;
+    background:linear-gradient(160deg,rgba(255,255,255,.78),rgba(255,255,255,.52))!important;-webkit-backdrop-filter:blur(10px) saturate(1.1);backdrop-filter:blur(10px) saturate(1.1);
+    border:1px solid rgba(184,150,46,.3)!important;box-shadow:0 10px 26px rgba(122,90,18,.1),0 1px 0 rgba(255,255,255,.9) inset!important;color:var(--vj-navy)!important;opacity:1;
+    transition:box-shadow .35s ease,border-color .35s ease,transform .5s cubic-bezier(.34,1.4,.64,1),opacity .5s ease}
+  .flow-card.vj #flowStages>li>strong{grid-column:2;align-self:end;font-size:1.02rem;line-height:1.25;color:var(--vj-navy)!important;overflow-wrap:anywhere;white-space:normal}
+  .flow-card.vj #flowStages>li>.fs-sub{grid-column:2;font-size:.86rem;line-height:1.4;color:#33405c!important;overflow-wrap:anywhere;white-space:normal}
+  .flow-card.vj .vj-num{grid-column:1;grid-row:1 / span 2;align-self:center;font-family:Georgia,"Times New Roman",serif;font-size:1.9rem;font-weight:700;line-height:1;letter-spacing:-.02em;color:#7A5A12;
+    background:linear-gradient(180deg,#94701C 0%,#7A5A12 45%,#5E440B 100%);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+  .flow-card.vj .vj-dot{position:absolute;inset-inline-start:-32px;top:22px;width:14px;height:14px;border-radius:50%;background:#fff;border:2px solid var(--vj-antique);box-shadow:0 0 0 3px rgba(255,253,248,.95);transition:background .35s ease,box-shadow .35s ease,transform .35s cubic-bezier(.34,1.56,.64,1)}
+  .flow-card.vj #flowStages>li::before{content:"";position:absolute;inset-inline-start:-18px;top:28px;width:18px;height:2px;background:linear-gradient(90deg,rgba(184,150,46,.55),rgba(184,150,46,.15));pointer-events:none}
+  html[dir=rtl] .flow-card.vj #flowStages>li::before{background:linear-gradient(270deg,rgba(184,150,46,.55),rgba(184,150,46,.15))}
+  .flow-card.vj #flowStages>li.done .vj-dot{background:var(--vj-antique)}
+  .flow-card.vj #flowStages>li.active{border-color:rgba(212,175,55,.75)!important;box-shadow:0 14px 30px rgba(122,90,18,.16),0 0 0 3px rgba(246,235,203,.75),0 1px 0 rgba(255,255,255,.95) inset!important}
+  .flow-card.vj #flowStages>li.active .vj-dot{background:radial-gradient(circle,#FFF6D6 0 30%,#D4AF37 70%);box-shadow:0 0 0 3px rgba(255,253,248,.95),0 0 12px rgba(212,175,55,.8);transform:scale(1.15)}
+  .flow-card.vj #flowStages>li.active::before{background:linear-gradient(90deg,#D4AF37,rgba(212,175,55,.3))}
+  html[dir=rtl] .flow-card.vj #flowStages>li.active::before{background:linear-gradient(270deg,#D4AF37,rgba(212,175,55,.3))}
+  .flow-card.vj #flowStages>li:active{transform:translateY(-2px);box-shadow:0 16px 32px rgba(122,90,18,.2),0 0 0 3px rgba(246,235,203,.8)!important}
+  /* reveal (only once the script is running; content is visible by default) */
+  .flow-card.vj.vj-ready #flowStages>li:not(.vj-in){opacity:0;transform:translateY(16px)}
+  /* sub-steps */
+  .flow-card.vj .vj-steps{grid-column:1 / -1;list-style:none;margin:8px 0 2px;padding:0;display:flex;flex-wrap:wrap;gap:6px}
+  .flow-card.vj #flowStages .vj-steps>li,.flow-card.vj #flowStages .vj-cats>li{flex:0 0 auto!important;width:auto!important;min-width:0!important;min-height:0!important;flex-direction:row!important;box-shadow:none!important;-webkit-backdrop-filter:none!important;backdrop-filter:none!important;transform:none!important;opacity:1!important;scroll-snap-align:none!important;text-align:start}
+  .flow-card.vj #flowStages .vj-steps>li{display:inline-flex!important;align-items:center;gap:6px;margin:0!important;padding:5px 10px!important;border-radius:999px;font-size:.76rem;font-weight:600;line-height:1.25;color:var(--vj-navy)!important;background:rgba(246,235,203,.55)!important;border:1px solid rgba(184,150,46,.35)!important;overflow-wrap:anywhere}
+  .flow-card.vj #flowStages .vj-steps>li{max-width:100%!important;box-sizing:border-box;white-space:normal!important}
+  .flow-card.vj #flowStages .vj-steps>li>span{min-width:0;overflow-wrap:anywhere;white-space:normal}
+  .flow-card.vj #flowStages .vj-steps>li::before{content:"";position:static!important;flex:0 0 5px;width:5px;height:5px;border-radius:50%;background:var(--vj-antique)}
+  .flow-card.vj #flowStages .vj-steps>li+li::before{background:var(--vj-bronze)}
+  /* CTA: full reading width, existing button */
+  .flow-card.vj #flowStages>li>.lifecycle-cta-btn{grid-column:1 / -1;justify-self:start;align-self:start;margin-top:8px;white-space:normal;text-align:start;max-width:100%}
+  /* logo hub (stage 02) */
+  .flow-card.vj .vj-hub{grid-column:1 / -1;display:flex;align-items:center;gap:14px;margin:10px 0 2px;--vj-p:0}
+  .flow-card.vj .vj-hub-ring{position:relative;flex:0 0 72px;width:72px;height:72px;border-radius:50%;display:grid;place-items:center;
+    background:conic-gradient(from -90deg,#D4AF37 calc(var(--vj-p) * 360deg),rgba(184,150,46,.18) 0);box-shadow:0 6px 16px rgba(122,90,18,.16)}
+  .flow-card.vj .vj-hub-logo{width:62px;height:62px;border-radius:50%;display:grid;place-items:center;background:radial-gradient(circle at 35% 30%,#fff,#FBF6E8 70%);color:#0A1128;box-shadow:0 0 0 1px rgba(184,150,46,.35) inset}
+  .flow-card.vj .vj-hub-logo svg{width:44px;height:44px;display:block;overflow:visible}
+  .flow-card.vj .vj-hub .p{position:absolute;left:50%;top:50%;width:4px;height:4px;margin:-2px;border-radius:50%;background:#F6EBCB;box-shadow:0 0 6px #D4AF37;opacity:0}
+  .flow-card.vj .vj-hub.is-gathering .p{animation:vjGather 1.6s ease-in both}
+  .flow-card.vj .vj-hub .p1{--a:10deg}.flow-card.vj .vj-hub .p2{--a:70deg;animation-delay:.12s}.flow-card.vj .vj-hub .p3{--a:130deg;animation-delay:.24s}.flow-card.vj .vj-hub .p4{--a:190deg;animation-delay:.08s}.flow-card.vj .vj-hub .p5{--a:250deg;animation-delay:.2s}.flow-card.vj .vj-hub .p6{--a:310deg;animation-delay:.3s}
+  @keyframes vjGather{0%{transform:rotate(var(--a)) translateX(54px);opacity:0}25%{opacity:1}100%{transform:rotate(calc(var(--a) + 70deg)) translateX(30px);opacity:0}}
+  .flow-card.vj .vj-hub.is-release .vj-hub-ring::after{content:"";position:absolute;inset:-3px;border-radius:50%;border:2px solid rgba(212,175,55,.7);animation:vjRelease 1.1s ease-out both;pointer-events:none}
+  @keyframes vjRelease{0%{transform:scale(1);opacity:.75}100%{transform:scale(1.5);opacity:0}}
+  .flow-card.vj .vj-hub-txt{display:flex;flex-direction:column;gap:2px;min-width:0}
+  .flow-card.vj .vj-hub-k{font-size:.68rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--vj-bronze)}
+  .flow-card.vj .vj-hub-v{font-family:Georgia,"Times New Roman",serif;font-size:1.5rem;font-weight:700;line-height:1;color:var(--vj-navy);font-variant-numeric:tabular-nums}
+  /* workforce grouping (stage 04) */
+  .flow-card.vj .vj-force{grid-column:1 / -1;display:flex;align-items:center;gap:14px;flex-wrap:wrap;margin:8px 0 2px;padding:12px;min-width:0;max-width:100%;box-sizing:border-box;border-radius:14px;background:rgba(255,255,255,.5);border:1px dashed rgba(184,150,46,.45)}
+  .flow-card.vj .vj-hex{flex:0 0 auto;display:block}
+  .flow-card.vj .vj-hex polygon{fill:rgba(246,235,203,.35);stroke:#B8962E;stroke-width:1.2;stroke-linejoin:round}
+  .flow-card.vj .vj-hex polygon.h1{stroke:#D4AF37;fill:rgba(255,255,255,.6)}.flow-card.vj .vj-hex polygon.h2{stroke:#7A5A12;fill:rgba(246,235,203,.2)}
+  .flow-card.vj .vj-cats{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,7.2em),1fr));gap:4px 16px;flex:1 1 150px;min-width:0;max-width:100%}
+  .flow-card.vj #flowStages .vj-cats>li{display:block!important;margin:0!important;padding:0!important;padding-inline-start:14px!important;background:none!important;border:0!important;border-radius:0!important;font-size:.8rem;font-weight:600;color:var(--vj-navy)!important;line-height:1.35;position:relative;overflow-wrap:anywhere}
+  .flow-card.vj #flowStages .vj-cats>li::before{content:"";position:absolute!important;inset-inline-start:0;top:.42em;width:6px;height:6px;transform:rotate(45deg);border:1.2px solid var(--vj-bronze);background:none!important}
+  .flow-card.vj .vj-note{margin:14px 0 2px;font-size:.74rem;line-height:1.45;color:#4a5570}
+}
+@media(min-width:821px){ .vj-num,.vj-dot,.vj-steps,.vj-hub,.vj-force,.vj-spine,.vj-note{display:none!important} }
+@media(prefers-reduced-motion:reduce){
+  .flow-card.vj .vj-pt,.flow-card.vj .vj-hub .p{animation:none!important;opacity:0!important}
+  .flow-card.vj.vj-ready #flowStages>li:not(.vj-in){opacity:1;transform:none}
+  .flow-card.vj #flowStages>li,.flow-card.vj .vj-fill,.flow-card.vj .vj-dot{transition:none!important}
+  .flow-card.vj::before{transform:none}
+}
+html.ts-motion-paused .flow-card.vj .vj-pt{animation-play-state:paused;opacity:0}
+</style>
 </head>
 <body>
-<a class="skip" href="#main"><span lang="en">Skip to main content</span><span lang="ar">الانتقال إلى المحتوى الرئيسي</span></a>
+<a class="skip" href="#main"><span lang="en">Skip to main content</span><span lang="ar">الانتقال إلى المحتوى الرئيسي</span></a><button type="button" class="skip ts-motion-btn ts-motion-skip" aria-pressed="false"><span class="ts-motion-t"><span lang="en">Pause moving cards</span><span lang="ar">إيقاف حركة البطاقات</span></span></button>
 
 <!-- SVG symbol library -->
 <svg width="0" height="0" style="position:absolute" aria-hidden="true">
@@ -5612,6 +5947,7 @@ body>.bpWebchat,body>#webchat{display:none!important}
       <div><h2><span lang="en">Legal</span><span lang="ar">القانونية</span></h2><ul><li><a href="#/legal/terms"><span lang="en">Terms of Use</span><span lang="ar">شروط الاستخدام</span></a></li><li><a href="#/legal/privacy"><span lang="en">Privacy Policy</span><span lang="ar">سياسة الخصوصية</span></a></li><li><a href="#/legal/cookies"><span lang="en">Cookies &amp; Preferences</span><span lang="ar">ملفات تعريف الارتباط</span></a></li><li><a href="#/legal/candidate"><span lang="en">Candidate Application Policy</span><span lang="ar">سياسة تقديم الطلبات</span></a></li><li><a href="#/legal/collab"><span lang="en">Collaboration Terms</span><span lang="ar">شروط التعاون</span></a></li></ul></div>
     </div>
     <div class="legalline">
+      <span class="ts-motion-wrap"><button type="button" class="ts-motion-btn" aria-pressed="false"><span class="ts-motion-i" aria-hidden="true">❚❚</span><span class="ts-motion-t"><span lang="en">Pause moving cards</span><span lang="ar">إيقاف حركة البطاقات</span></span></button></span>
       <span>© <span id="year">2026</span> <span lang="en">Talent Star Employment Services LLC. All rights reserved. Registered in the United Arab Emirates.</span><span lang="ar">تالنت ستار لخدمات التوظيف ذ.م.م. جميع الحقوق محفوظة. مسجّلة في دولة الإمارات العربية المتحدة.</span></span>
       <span><span lang="en">Trade license:</span><span lang="ar">الرخصة التجارية:</span> <span class="ltr" data-cfg="licence"><span lang="en">to be confirmed</span><span lang="ar">قيد التأكيد</span></span></span>
     </div>
@@ -5639,7 +5975,7 @@ body>.bpWebchat,body>#webchat{display:none!important}
     <div class="st-id"><b id="starla-title"><span lang="en">STARLA</span><span lang="ar">ستارلا</span></b><small><span lang="en">YOUR TALENT STAR DIGITAL CONCIERGE</span><span lang="ar">ستارلا · المساعد الرقمي لتالنت ستار</span></small></div>
     <div class="st-ctl">
       <button type="button" class="st-seg" id="stEngine" role="switch" aria-checked="true" data-mode="botpress" data-sync="connecting" aria-label="Engine: Bot (cloud runtime) or AI (website concierge)"><span class="seg seg-bot" id="starlaToggleBot" aria-hidden="true">Bot</span><span class="seg seg-ai active" id="starlaToggleAi" aria-hidden="true">AI</span></button>
-      <span class="st-acts"><button type="button" class="st-ic" id="starlaMin" aria-label="Minimize Starla (keeps this conversation)" title="Minimize"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M6 12h12"/></svg></button><button type="button" class="st-ic xbtn" id="starlaClose" aria-label="Close Starla" title="Close and end conversation"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></button></span>
+      <span class="st-acts"><button type="button" class="st-ic xbtn" id="starlaClose" aria-label="Close Starla" title="Close and end conversation"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></button><button type="button" class="st-ic" id="starlaMin" aria-label="Minimize Starla (keeps this conversation)" title="Minimize"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M6 12h12"/></svg></button></span>
     </div>
   </div>
   <div class="st-body starla-middle-stage starla-modal-body-wrapper" id="starlaMiddleStage">
@@ -6374,7 +6710,7 @@ Every response must be:
   function userSay(t){ if(starla.dataset.bpview==="native"){ history.push({r:"me",t}); save(); return; } bubble(t,true,true); history.push({r:"me",t}); save(); starla.classList.add("chatting"); }
   let answer=function(key){ if(key==="hire") pendingCapture=true; else if(key!=="hireCapture") pendingCapture=false; reply(key); };
   function welcome(){ bubble(KB.welcome[L()],false,true); history.push({r:"bot",k:"welcome",t:KB.welcome[L()]}); const g=goalGet(); if(g&&GOAL_LABEL[g]){ const txt=KB.resume[L()].replace("{goal}",GOAL_LABEL[g][L()==="ar"?1:0]); bubble(txt,false,true); history.push({r:"bot",t:txt}); } save(); }
-  function restore(){ sLog.innerHTML=""; starla.classList.toggle("chatting",history.some(m=>m.r==="me")); if(!history.length){ welcome(); return; } history.forEach(m=>{ if(m.r==="me") bubble(m.t,true,true); else if(m.r==="sys"){ const d=document.createElement("div"); d.className="msg sys"; d.textContent=m.t; sLog.appendChild(d); } else bubble(m.k&&KB[m.k]?KB[m.k][L()]:m.t,false,true); }); sLog.scrollTop=sLog.scrollHeight; }
+  function restore(){ sLog.innerHTML=""; starla.classList.toggle("chatting",history.some(m=>m.r==="me")); if(!history.length){ welcome(); return; } history.forEach(m=>{ if(m.r==="me") bubble(m.t,true,true); else if(m.r==="sys"){ const d=document.createElement("div"); d.className="msg sys"; sysFill(d,m.t); sLog.appendChild(d); } else bubble(m.k&&KB[m.k]?KB[m.k][L()]:m.t,false,true); }); sLog.scrollTop=sLog.scrollHeight; }
   function restart(){ try{ if(typeof attClear==="function") attClear(); }catch(e){} history=[]; save(); pendingCapture=false; starla.classList.remove("chatting"); sLog.innerHTML=""; welcome(); }
   function ctxPills(){ const box=$("#stCtx"); if(!box) return; box.classList.remove("bp"); const page=(location.hash.replace(/^#\/?/,"").split(/[?#\/]/)[0]||"home"); const items=CTX[page]||[]; box.innerHTML=items.map(([en,ar,k])=>`<button type="button" data-ctx="${k}">${L()==="ar"?ar:en}</button>`).join(""); box.hidden=!items.length; }
   function burst(){ const o=$("#stOrb"); if(!o) return; o.classList.remove("burst"); void o.offsetWidth; o.classList.add("burst"); setTimeout(()=>o.classList.remove("burst"),700); }
@@ -6417,10 +6753,8 @@ Every response must be:
    display:none also removes the hidden header's buttons from the tab order. Only spacing that belonged to hidden parts is removed. */
 .bpHeaderContainer { display: none !important; }
 .bpMessageListMarqueeTitle { display: none !important; }
-@media (max-width: 820px) {
-  .bpMessageListMarqueeAvatarContainer { display: none !important; }
-  .bpMessageListMarqueeContainer { padding: 4px 0 10px 0 !important; }
-}`;
+.bpMessageListMarqueeAvatarContainer { display: none !important; }
+.bpMessageListMarqueeContainer { padding: 4px 0 10px 0 !important; }`;
   function bpWidgetRoot(){ const box=document.getElementById("bp-embedded-webchat"); if(!box) return null; const host=box.querySelector(".bpEmbeddedWebchat")||[...box.querySelectorAll("*")].find(n=>n.shadowRoot); return host&&host.shadowRoot||null; }
   function bpStyleAdopt(){ try{ const root=bpWidgetRoot(); if(!root||root.getElementById("starla-bp-style")) return !!root; const st=document.createElement("style"); st.id="starla-bp-style"; st.textContent=BP_WIDGET_CSS; root.appendChild(st); return true; }catch(e){ return false; } }
   (function(){ const box=document.getElementById("bp-embedded-webchat"); if(!box) return; let t=0; const kick=()=>{ clearTimeout(t); let n=0; (function go(){ if(bpStyleAdopt()||++n>40) return; t=setTimeout(go,250); })(); }; try{ new MutationObserver(kick).observe(box,{childList:true,subtree:true}); }catch(e){} kick(); window.__starlaBpStyle=kick; })();
@@ -6472,13 +6806,16 @@ Every response must be:
   /* ---- dual-engine user toggle: 'botpress' (cloud runtime) | 'local' (AI Concierge, client-side RAG) ---- */
   let engineMode="local"; /* AI (website concierge) is the default; "bot" only when the visitor chose it this session */ try{ const m=sessionStorage.getItem("starla_mode")||({local:"ai",botpress:"bot"}[sessionStorage.getItem("starla_engine_mode")]||""); if(m==="bot") engineMode="botpress"; else if(m==="ai") engineMode="local"; }catch(e){}
   const ENGINE_TXT={ botpress:["Botpress","بوتبرس"], local:["AI Concierge","المساعد الذكي"] };
-  const ENGINE_NOTICE={ botpress:["Connected to Botpress Cloud Intelligence Engine.","تم الاتصال بمحرك Botpress السحابي للذكاء."], local:["Connected to Talent Star Local Concierge Engine.","تم الاتصال بمحرك المساعد المحلي لتالنت ستار."] };
+  const ENGINE_NOTICE={ botpress:["Connected to: Botpress Cloud Intelligence","متصل بـ: Botpress Cloud Intelligence"], local:["Connected to: Talent Star Cyborg Engine","متصل بـ: محرك تالنت ستار سايبورغ"] };
   const isLocalMode=()=>engineMode==="local";
   let bpAdopted=false; let viewTimer=0;
   function applyView(){ const native=engineMode==="botpress"&&((bpAdopted&&bpSdkReady)||bpResetting); const want=engineMode==="botpress"?(native?"native":"stream"):"stream"; const eng=engineMode==="botpress"?"bot":"ai"; if(starla.dataset.engine===eng&&starla.dataset.bpview===want) return; const body=$("#starlaMiddleStage"); const swap=()=>{ starla.dataset.engine=eng; starla.dataset.bpview=want; const v=$("#bp-embedded-webchat"), a=$("#starlaAiView"); if(v){ v.hidden=false; v.classList.toggle("parked",want!=="native"); v.dir=document.documentElement.dir||"ltr"; v.removeAttribute("lang"); v.dataset.lang=L(); } if(a) a.hidden=want==="native"; else sLog.hidden=want==="native"; if(want==="native"){ bpReflow(); [50,400,1200].forEach(ms=>setTimeout(bpReflow,ms)); setTimeout(bpPaintCheck,2600); } else { sLog.scrollTop=sLog.scrollHeight; } };
     if(!body||matchMedia("(prefers-reduced-motion: reduce)").matches){ swap(); return; } clearTimeout(viewTimer); body.classList.add("fade"); viewTimer=setTimeout(()=>{ swap(); requestAnimationFrame(()=>body.classList.remove("fade")); },250); }
   function paintEngine(){ const t=$("#stEngine"); if(!t) return; t.dataset.mode=engineMode; t.dataset.sync=SYNC.state; starla.classList.toggle("starla-mode-bot",engineMode==="botpress"); $("#starlaToggleBot")?.classList.toggle("active",engineMode==="botpress"); $("#starlaToggleAi")?.classList.toggle("active",engineMode==="local"); applyView(); t.setAttribute("aria-checked",engineMode==="botpress"?"true":"false"); const ar=L()==="ar"; t.setAttribute("aria-label",ar?"المحرك: Bot (التشغيل السحابي) أو AI (مساعد الموقع)":"Engine: Bot (cloud runtime) or AI (website concierge)"); if(ENGINE_NOTICE.__tiles) ENGINE_NOTICE.__tiles(); t.title=engineMode==="botpress"?`Bot · ${STATUS_TXT[SYNC.state][ar?1:0]}${SYNC.latency?" · "+SYNC.latency+"ms":""}`:(ar?"AI · محرك الموقع المحلي":"AI · website concierge engine"); }
-  function sysNotice(txt){ const d=document.createElement("div"); d.className="msg sys"; d.setAttribute("role","status"); d.textContent=txt; sLog.appendChild(d); sLog.scrollTop=sLog.scrollHeight; history.push({r:"sys",t:txt}); save(); }
+  function sysFill(d,txt){ const m=/^(Connected to:|متصل بـ:)\s*(.+)$/.exec(txt||""); if(!m){ d.textContent=txt; return; } const bot=/^Botpress/.test(m[2]);
+    const ico=bot?'<svg class="st-conn-ic" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M4 10a7.3 7.3 0 0 0 10 10Z"/><path d="m9 15 3-3"/><path d="M17 13a6 6 0 0 0-6-6"/><path d="M21 13A10 10 0 0 0 11 3"/></svg>':'<svg class="st-conn-ic" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M13 7 9 3 5 7l4 4"/><path d="m17 11 4 4-4 4-4-4"/><path d="m8 12 4 4 6-6-4-4Z"/><path d="m16 8 3-3"/><path d="M9 21a6 6 0 0 0-6-6"/></svg>';
+    d.classList.add("conn"); d.dataset.engine=bot?"botpress":"local"; d.textContent=""; const a=document.createElement("span"); a.className="st-conn-k"; a.textContent=m[1]; const i=document.createElement("span"); i.className="st-conn-i"; i.setAttribute("aria-hidden","true"); i.innerHTML=ico; const b=document.createElement("span"); b.className="st-conn-v"; b.textContent=m[2]; d.append(a,i,b); }
+  function sysNotice(txt){ const d=document.createElement("div"); d.className="msg sys"; d.setAttribute("role","status"); sysFill(d,txt); sLog.appendChild(d); sLog.scrollTop=sLog.scrollHeight; history.push({r:"sys",t:txt}); save(); }
   function setEngine(mode,{silent}={}){ if(mode!=="botpress"&&mode!=="local") return; const changed=mode!==engineMode; if(changed&&mode==="botpress"){ try{ if(typeof voiceOff==="function") voiceOff(true); }catch(e){} } engineMode=mode; try{ sessionStorage.setItem("starla_mode",mode==="local"?"ai":"bot"); sessionStorage.removeItem("starla_engine_mode"); }catch(e){} paintEngine(); if(!changed) return;
     const t=$("#stEngine"); if(t){ t.classList.remove("flip"); void t.offsetWidth; t.classList.add("flip"); }
     try{ console.log("%c[STARLA ENGINE MODE SWITCHED]:","color:#D4AF37;font-weight:bold;",mode); }catch(e){}
@@ -6524,7 +6861,7 @@ Every response must be:
      then ask the runtime to open/resize and broadcast a window resize so it recalculates from its 0px initial layout (video "SAIBOT"). */
   const BP_APP_W=440; /* the cloud webchat app lays itself out at ~420-430px regardless of its frame; below that we scale the frame instead of clipping it */
   function fitFrames(w,h){ const box=$("#bp-embedded-webchat"); if(!box) return; box.querySelectorAll("iframe").forEach(f=>{ const imp=(k,v)=>f.style.setProperty(k,v,"important"); if(w>=BP_APP_W){ imp("transform","none"); imp("width","100%"); imp("height","100%"); imp("transform-origin","0 0"); } else { const sc=w/BP_APP_W; imp("width",BP_APP_W+"px"); imp("min-width",BP_APP_W+"px"); imp("max-width","none"); imp("height",Math.round(h/sc)+"px"); imp("max-height","none"); imp("transform-origin",(document.documentElement.dir==="rtl"?"100% 0":"0 0")); imp("transform","scale("+sc.toFixed(4)+")"); imp("left","0"); imp("right","0"); } }); }
-  function sizeStage(){ const box=$("#bp-embedded-webchat"), wrap=$("#starlaMiddleStage"); if(!box||!wrap) return 0; const cs=getComputedStyle(wrap); const h=Math.max(380,Math.round(wrap.getBoundingClientRect().height-(parseFloat(cs.paddingTop)||0)-(parseFloat(cs.paddingBottom)||0))); const w=Math.round(wrap.getBoundingClientRect().width-(parseFloat(cs.paddingLeft)||0)-(parseFloat(cs.paddingRight)||0)); box.style.setProperty("height",h+"px","important"); box.style.setProperty("min-height",h+"px","important"); box.querySelectorAll(":scope > *, :scope > * > *, :scope > .st-bp-clamp > * > *").forEach(el=>{ if(el.classList.contains("st-toast")||el.dataset.stBp==="fab"||el.tagName==="IFRAME") return; el.style.setProperty("height",h+"px","important"); el.style.setProperty("max-height",h+"px","important"); if(w) el.style.setProperty("width",w+"px","important"); }); fitFrames(w,h); return h; }
+  function sizeStage(){ const box=$("#bp-embedded-webchat"), wrap=$("#starlaMiddleStage"); if(!box||!wrap) return 0; const cs=getComputedStyle(wrap); const h=Math.max(matchMedia("(max-width: 820px)").matches?380:150,Math.round(wrap.getBoundingClientRect().height-(parseFloat(cs.paddingTop)||0)-(parseFloat(cs.paddingBottom)||0))); const w=Math.round(wrap.getBoundingClientRect().width-(parseFloat(cs.paddingLeft)||0)-(parseFloat(cs.paddingRight)||0)); box.style.setProperty("height",h+"px","important"); box.style.setProperty("min-height",h+"px","important"); box.querySelectorAll(":scope > *, :scope > * > *, :scope > .st-bp-clamp > * > *").forEach(el=>{ if(el.classList.contains("st-toast")||el.dataset.stBp==="fab"||el.tagName==="IFRAME") return; el.style.setProperty("height",h+"px","important"); el.style.setProperty("max-height",h+"px","important"); if(w) el.style.setProperty("width",w+"px","important"); }); fitFrames(w,h); return h; }
   function bpReflow(){ bpNormalize(); sizeStage(); try{ window.dispatchEvent(new Event("resize")); }catch(e){} try{ const W=bpSdk||window.botpress; if(W){ if(typeof W.open==="function") W.open(); else if(typeof W.show==="function") W.show(); else if(typeof W.sendEvent==="function") W.sendEvent({type:"show"}); if(typeof W.resize==="function") W.resize(); } }catch(e){} }
   function bpPaintCheck(){ if(starla.dataset.bpview!=="native"||!starla.hasAttribute("open")) return; const box=$("#bp-embedded-webchat"); const painted=[...box.querySelectorAll("*")].some(el=>{ if(el.classList.contains("st-toast")) return false; const sizedByUs=el.style.getPropertyPriority("height")==="important"&&el.tagName!=="IFRAME"; if(sizedByUs&&!el.shadowRoot&&!el.children.length) return false; const r=el.getBoundingClientRect(); const cs=getComputedStyle(el); return (el.tagName==="IFRAME"||el.shadowRoot||el.children.length||el.textContent.trim())&&r.width>60&&r.height>60&&cs.visibility!=="hidden"&&cs.display!=="none"&&parseFloat(cs.opacity)>0; }); if(painted) return; SYNC.lastErr="widget rendered nothing"; bpAdopted=false; bpSdkReady=false; setSync("local","fallback"); applyView(); setTimeout(()=>sysNotice(L()==="ar"?"لم تظهر نافذة Botpress في هذا المتصفح — ستارلا تجيب محلياً الآن.":"The Botpress window didn't render in this browser — Starla is answering locally for now."),300); }
   try{ new ResizeObserver(()=>{ if(starla.dataset.bpview==="native") sizeStage(); }).observe($("#starlaMiddleStage")); }catch(e){}
@@ -7628,7 +7965,7 @@ Every response must be:
     let timers=[]; const later=(fn,ms)=>{ const t=setTimeout(fn,ms); timers.push(t); return t; }; const clearAll=()=>{ timers.forEach(clearTimeout); timers=[]; };
     let running=false;
     // flight (module 7)
-    function flightLoop(){ const ol=$("#cpSteps"), ic=$("#cpFlight"); if(!ol||!ic||mq.matches) return; const steps=$$(".cp-step",ol); const pos=steps.map(li=>{ const n=li.querySelector(".cp-step-n").getBoundingClientRect(), o=ol.getBoundingClientRect(); return {x:n.left-o.left+n.width/2, y:n.top-o.top-30}; }); let i=0; ic.style.transition="none"; ic.style.left=pos[0].x+"px"; ic.style.top=pos[0].y+"px"; requestAnimationFrame(()=>{ ic.style.transition=""; });
+    function flightLoop(){ const ol=$("#cpSteps"), ic=$("#cpFlight"); if(!ol||!ic||mq.matches||matchMedia("(max-width: 820px)").matches) return; const steps=$$(".cp-step",ol); const pos=steps.map(li=>{ const n=li.querySelector(".cp-step-n").getBoundingClientRect(), o=ol.getBoundingClientRect(); return {x:n.left-o.left+n.width/2, y:n.top-o.top-30}; }); let i=0; ic.style.transition="none"; ic.style.left=pos[0].x+"px"; ic.style.top=pos[0].y+"px"; requestAnimationFrame(()=>{ ic.style.transition=""; });
       const hit=k=>{ steps[k].classList.add("hit"); later(()=>steps[k].classList.remove("hit"),900); };
       const go=()=>{ if(!running) return; if(i>=pos.length-1){ hit(i); later(()=>{ i=0; ic.style.transition="none"; ic.style.left=pos[0].x+"px"; ic.style.top=pos[0].y+"px"; requestAnimationFrame(()=>{ ic.style.transition=""; later(go,300); }); },3000); return; } i++; ic.style.left=pos[i].x+"px"; ic.style.top=pos[i].y+"px"; later(()=>{ hit(i); later(go,350); },1100); };
       later(()=>{ hit(0); later(go,500); },300); }
@@ -7797,10 +8134,10 @@ Every response must be:
       const put=(p,jump)=>{ fl.classList.toggle("jump",!!jump); fl.style.transform=`translate(${p.x.toFixed(1)}px,${p.y.toFixed(1)}px)`; if(jump){ void fl.offsetWidth; fl.classList.remove("jump"); } };
       const flash=d=>{ d.classList.remove("flash","repel"); void d.offsetWidth; d.classList.add("flash","repel"); };
       function arrive(){ if(!run) return; flash(dots[i]); fl.classList.add("hold"); const last=i===dots.length-1; timer=setTimeout(()=>{ if(!run) return; fl.classList.remove("hold"); if(last){ timer=setTimeout(()=>{ if(!run) return; i=0; put(pos(dots[0]),true); arrive(); },END); } else { i++; put(pos(dots[i])); timer=setTimeout(arrive,GLIDE); } },HOLD); }
-      function start(){ if(run||reduce()) return; run=true; i=0; put(pos(dots[0]),true); arrive(); } function stop(){ run=false; clearTimeout(timer); }
+      function start(){ if(run||reduce()||(opts.noMobile&&matchMedia("(max-width: 820px)").matches)) return; run=true; i=0; put(pos(dots[0]),true); arrive(); } function stop(){ run=false; clearTimeout(timer); }
       if("IntersectionObserver" in window) new IntersectionObserver(es=>{ es[0].isIntersecting?start():stop(); },{threshold:.15}).observe(tl); else start();
       document.addEventListener("visibilitychange",()=>document.hidden?stop():start()); addEventListener("resize",()=>{ if(run){ stop(); start(); } },{passive:true}); $("#langBtn").addEventListener("click",()=>setTimeout(()=>{ if(run){ stop(); start(); } },120)); (mq.addEventListener?mq.addEventListener("change",()=>{ stop(); start(); }):0); }
-    guide($("#hwTimeline"),"➵","arrow",{glide:1100,hold:250,end:4000}); guide($(".co-timeline"),"➵","arrow",{glide:1100,hold:250,end:4000});
+    guide($("#hwTimeline"),"➵","arrow",{glide:1100,hold:250,end:4000,noMobile:true}); guide($(".co-timeline"),"➵","arrow",{glide:1100,hold:250,end:4000,noMobile:true});
 
     /* Flying Starla: micro-patrol within 120 px of the assistant hub every 5 s */
     (function(){ const fl=$("#starlaFly"); if(fl) fl.remove(); if(!fl||true) return; let timer=0, home=0;
@@ -7906,20 +8243,42 @@ Every response must be:
       container.addEventListener("scroll",()=>{ cancelAnimationFrame(update.r); update.r=requestAnimationFrame(update); if(!autoScrolling) userPause(); },{passive:true}); ["touchstart","touchmove","pointerdown","wheel"].forEach(ev=>container.addEventListener(ev,userPause,{passive:true}));
       addEventListener("resize",update,{passive:true}); (mob.addEventListener?mob.addEventListener("change",update):0); update(); setTimeout(update,600);
       auto=setInterval(advance,3000); document.addEventListener("visibilitychange",()=>{ clearInterval(auto); if(!document.hidden) auto=setInterval(advance,3000); }); }
-    setTimeout(()=>reel($("#home-services"),$$("#home-services > .service-card"),{label:"Service cards"}),0);
+    /* v102: #home-services is driven by the shared carousel (all sizes) */
     reel($(".outlook-grid"),$$(".outlook-grid .hcard"),{label:"Strategy outlook cards"});
-    /* Why Talent Star: JS conveyor with touch-drag + momentum, auto-drift resumes after 5 s idle */
-    (function(){ const why=$("#home-why"), stage=$("#whyStage"); if(!why||!stage) return; let x=0, v=0, idle=0, dragging=false, lastT=0, lastX=0, raf=0, half=0; const SPEED=28; /* px per second */
-      function measure(){ const kids=$$(":scope > .sil-card",why); if(kids.length<2) return; const gap=parseFloat(getComputedStyle(why).gap)||16; half=(kids[0].getBoundingClientRect().width+gap)*(kids.length/2); }
-      function wrap(){ if(half<=0) return; const rtl=html.dir==="rtl"; if(!rtl){ while(x<=-half) x+=half; while(x>0) x-=half; } else { while(x>=half) x-=half; while(x<0) x+=half; } }
-      function frame(t){ if(!why.classList.contains("conveyor")){ raf=0; return; } const dt=Math.min(50,t-(lastT||t))/1000; lastT=t; const rtl=html.dir==="rtl"; if(half<=0) measure();
-        if(dragging){ } else if(Math.abs(v)>2){ x+=v*dt; v*=0.94; } else if(performance.now()>idle&&!reduce()){ x+=(rtl?SPEED:-SPEED)*dt; } wrap(); why.style.transform=`translateX(${x.toFixed(2)}px)`; raf=requestAnimationFrame(frame); }
-      function start(){ measure(); if(!raf) raf=requestAnimationFrame(frame); }
-      let sx=0, sxx=0, st=0; why.addEventListener("touchstart",e=>{ dragging=true; v=0; sx=e.touches[0].clientX; sxx=x; st=performance.now(); lastX=sx; idle=Date.now()+5000; },{passive:true});
-      why.addEventListener("touchmove",e=>{ if(!dragging) return; const cx=e.touches[0].clientX; const now=performance.now(); v=Math.max(-1200,Math.min(1200,(cx-lastX)/Math.max(8,(now-st))*1000*0.6)); st=now; lastX=cx; x=sxx+(cx-sx); wrap(); idle=Date.now()+5000; },{passive:true});
-      why.addEventListener("touchend",()=>{ dragging=false; idle=Date.now()+5000; },{passive:true}); why.addEventListener("touchcancel",()=>{ dragging=false; },{passive:true});
-      const obs=new MutationObserver(()=>{ const on=why.classList.contains("conveyor")&&mob.matches, drive=why.classList.contains("js-drive"); if(on&&!drive){ why.classList.add("js-drive"); start(); } else if(!on&&drive){ why.classList.remove("js-drive"); why.style.transform=""; } }); obs.observe(why,{attributes:true,attributeFilter:["class"]});
-      if(why.classList.contains("conveyor")&&mob.matches){ why.classList.add("js-drive"); start(); } addEventListener("resize",()=>{ measure(); if(!mob.matches&&why.classList.contains("js-drive")){ why.classList.remove("js-drive"); why.style.transform=""; } else if(mob.matches&&why.classList.contains("conveyor")&&!why.classList.contains("js-drive")){ why.classList.add("js-drive"); start(); } },{passive:true}); $("#langBtn").addEventListener("click",()=>setTimeout(()=>{ x=0; measure(); },100));
+    /* Why Talent Star (v102): one JS conveyor at every size. Auto-drift + touch/mouse drag + horizontal wheel + previous/next + pause.
+       Transform only: no native scroll container, so nothing competes with the drift. Manual input always wins. */
+    (function(){ const why=$("#home-why"), stage=$("#whyStage"); if(!why||!stage) return; let x=0, v=0, idle=0, dragging=false, lastT=0, lastX=0, raf=0, half=0, step=276, target=null, paused=false, kb=false, hover=false, vis=true, moved=0; const now=()=>performance.now();
+      const nav=document.createElement("div"); nav.className="ts-nav ts-why-nav"; nav.setAttribute("role","group"); nav.setAttribute("aria-label","Why Talent Star cards");
+      nav.innerHTML='<button type="button" class="prev"><i aria-hidden="true">‹</i><span class="sr-only"><span lang="en">Previous card</span><span lang="ar">البطاقة السابقة</span></span></button><button type="button" class="next"><i aria-hidden="true">›</i><span class="sr-only"><span lang="en">Next card</span><span lang="ar">البطاقة التالية</span></span></button>'; stage.after(nav);
+      const off=()=>!!window.__tsMotionPaused; addEventListener("ts-motion",()=>{ paint(); start(); });
+      function paint(){ const on=why.classList.contains("conveyor"); nav.hidden=!on; why.dataset.tsDrift=(on&&!off()&&!reduce())?"auto":"manual"; }
+      function measure(){ const kids=$$(":scope > .sil-card",why); if(kids.length<2) return; const gap=parseFloat(getComputedStyle(why).gap)||16; step=kids[0].getBoundingClientRect().width+gap; half=step*(kids.length/2); }
+      let tw0=0, twFrom=0;
+      function wrap(){ if(half<=0) return; const rtl=html.dir==="rtl"; let d=0; if(!rtl){ while(x+d<=-half) d+=half; while(x+d>0) d-=half; } else { while(x+d>=half) d-=half; while(x+d<0) d+=half; } if(d){ x+=d; if(target!=null){ target+=d; twFrom+=d; } } }
+      function frame(t){ raf=0; if(!why.classList.contains("conveyor")||!vis||document.hidden) return; const dt=Math.min(250,t-(lastT||t))/1000; lastT=t; const rtl=html.dir==="rtl"; if(half<=0) measure();
+        if(dragging){ } else if(target!=null){ const p=reduce()?1:Math.min(1,(now()-tw0)/420), e=1-Math.pow(1-p,3); x=twFrom+(target-twFrom)*e; if(p>=1){ x=target; target=null; } }
+        else if(Math.abs(v)>2){ x+=v*dt; v*=Math.pow(0.94,dt*60); }
+        else if(!off()&&!kb&&!hover&&now()>idle&&!reduce()){ x+=(rtl?1:-1)*(mob.matches?28:60)*dt; window.__whyTicks=(window.__whyTicks||0)+1; }
+        wrap(); why.style.transform=`translateX(${x.toFixed(2)}px)`; raf=requestAnimationFrame(frame); }
+      function start(){ measure(); lastT=0; if(!raf) raf=requestAnimationFrame(frame); }
+      function nudge(dir){ if(half<=0) measure(); const rtl=html.dir==="rtl"; const base=target!=null?target:x; twFrom=x; tw0=now(); target=base+(rtl?1:-1)*dir*step; v=0; idle=now()+5000; start(); }
+      nav.querySelector(".prev").addEventListener("click",()=>nudge(-1)); nav.querySelector(".next").addEventListener("click",()=>nudge(1)); 
+      /* touch + mouse drag (a real click on a card is left alone: dragging only starts after 6 px) */
+      let sx=0, sxx=0, st=0, pid=null, armed=false;
+      stage.addEventListener("pointerdown",e=>{ if(!why.classList.contains("conveyor")||(e.pointerType==="mouse"&&e.button!==0)) return; armed=true; pid=e.pointerId; sx=e.clientX; sxx=x; st=now(); lastX=sx; moved=0; idle=now()+5000; },{passive:true});
+      addEventListener("pointermove",e=>{ if(!armed||e.pointerId!==pid) return; const cx=e.clientX; moved=Math.max(moved,Math.abs(cx-sx)); if(!dragging){ if(moved<6) return; dragging=true; target=null; v=0; why.classList.add("is-dragging"); } const t=now(); v=Math.max(-1400,Math.min(1400,(cx-lastX)/Math.max(8,(t-st))*1000*0.6)); st=t; lastX=cx; x=sxx+(cx-sx); idle=now()+5000; },{passive:true});
+      const end=()=>{ if(!armed) return; armed=false; if(dragging){ dragging=false; why.classList.remove("is-dragging"); } idle=now()+5000; }; addEventListener("pointerup",end,{passive:true}); addEventListener("pointercancel",end,{passive:true});
+      stage.addEventListener("click",e=>{ if(moved>6){ e.preventDefault(); e.stopPropagation(); moved=0; } },true);
+      stage.addEventListener("dragstart",e=>e.preventDefault());
+      stage.addEventListener("wheel",e=>{ if(!why.classList.contains("conveyor")) return; const dx=Math.abs(e.deltaX)>Math.abs(e.deltaY)?e.deltaX:(e.shiftKey?e.deltaY:0); if(!dx) return; e.preventDefault(); target=null; v=0; x-=dx; idle=now()+5000; },{passive:false});
+      stage.addEventListener("pointerenter",e=>{ if(e.pointerType==="mouse") hover=true; },{passive:true}); stage.addEventListener("pointerleave",()=>{ hover=false; },{passive:true});
+      const kbIn=e=>{ let f=true; try{ f=e.target.matches(":focus-visible"); }catch(_){ } if(f) kb=true; }, kbOut=()=>setTimeout(()=>{ const a=document.activeElement; if(!stage.contains(a)&&!nav.contains(a)) kb=false; },0);
+      [stage,nav].forEach(n=>{ n.addEventListener("focusin",kbIn); n.addEventListener("focusout",kbOut); });
+      if("IntersectionObserver" in window) new IntersectionObserver(es=>{ vis=es[es.length-1].isIntersecting; if(vis) start(); },{threshold:.05}).observe(stage);
+      document.addEventListener("visibilitychange",()=>{ if(!document.hidden) start(); });
+      const sync=()=>{ const on=why.classList.contains("conveyor"), drive=why.classList.contains("js-drive"); if(on&&!drive){ why.classList.add("js-drive"); start(); } else if(!on&&drive){ why.classList.remove("js-drive"); why.style.transform=""; } paint(); };
+      new MutationObserver(sync).observe(why,{attributes:true,attributeFilter:["class"]}); sync();
+      addEventListener("resize",()=>{ measure(); },{passive:true}); $("#langBtn").addEventListener("click",()=>setTimeout(()=>{ x=0; target=null; measure(); paint(); },100));
     })();
   })();
 
@@ -8218,6 +8577,12 @@ Every response must be:
     const T=(en,ar)=>L()?ar:en;
     // geometry (1200 x 460)
     const MOB=innerWidth<=820; initFlow.mode=MOB?"v":"h";
+    if(MOB){ /* v103: the mobile card is the vertical journey (v103 module). No diagram, no counters, no timers here. */
+      if(initFlow.dispose) initFlow.dispose(); ["tick","glow","flip"].forEach(k=>{ if(initFlow[k]){ clearInterval(initFlow[k]); initFlow[k]=0; } }); if(initFlow.shatterRaf){ cancelAnimationFrame(initFlow.shatterRaf); initFlow.shatterRaf=0; }
+      svg.innerHTML=""; const pinM=$("#flowPin"); if(pinM){ pinM.classList.remove("pinned"); pinM.style.height=""; }
+      const onR=()=>{ if((innerWidth<=820?"v":"h")!==initFlow.mode) initFlow(); }; addEventListener("resize",onR,{passive:true}); initFlow.dispose=()=>removeEventListener("resize",onR);
+      if(!initFlow.bound){ initFlow.bound=true; $("#langBtn").addEventListener("click",()=>setTimeout(initFlow,0)); }
+      return; }
     const DEV=MOB?[[100,130],[340,130]]:[[150,120],[150,300]], HEX=MOB?[220,480]:[520,230], ONB=MOB?[220,720]:[760,105], REPL=MOB?[100,880]:[760,235], BENCH=MOB?[340,880]:[760,365], PANEL=MOB?[190,1080]:[1010,150];
     const VB=MOB?"0 0 440 1280":"0 0 1200 460"; svg.setAttribute("viewBox",VB); svg.classList.toggle("vertical",MOB);
     const curveH=(a,b)=>`M${a[0]},${a[1]} C${(a[0]+b[0])/2},${a[1]} ${(a[0]+b[0])/2},${b[1]} ${b[0]},${b[1]}`;
@@ -8344,6 +8709,256 @@ Every response must be:
   window.__starlaWave={ state(s){ st=P[s]?s:"idle"; cv.dataset.state=st; kick(); }, get running(){ return !!raf; }, get current(){ return st; } };
   cv.dataset.state="idle"; document.addEventListener("visibilitychange",kick); window.addEventListener("resize",()=>{ size(); if(reduce.matches) draw(); else kick(); }); (reduce.addEventListener?reduce.addEventListener("change",kick):reduce.addListener(kick)); document.getElementById("langBtn")?.addEventListener("click",()=>setTimeout(()=>{ size(); if(reduce.matches) draw(); },120));
   if(document.fonts&&document.fonts.ready) document.fonts.ready.then(()=>{ size(); if(reduce.matches) draw(); }); kick();
+})();
+</script>
+
+<script id="v102-js">
+/* v102: launcher ripple + one scoped module for carousels, drifting rows, decorative spins, journey arrows and page curls.
+   Everything a component adds is removed again when it is switched off. */
+(function(){
+  "use strict";
+  var $=function(s,r){ return (r||document).querySelector(s); }, $$=function(s,r){ return Array.prototype.slice.call((r||document).querySelectorAll(s)); };
+  var MOB=matchMedia("(max-width: 820px)"), RM=matchMedia("(prefers-reduced-motion: reduce)");
+  var watch=function(mq,fn){ if(mq.addEventListener) mq.addEventListener("change",fn); else mq.addListener(fn); };
+  var isRtl=function(){ return document.documentElement.dir==="rtl"; };
+  var bi=function(en,ar){ return '<span lang="en">'+en+'</span><span lang="ar">'+ar+'</span>'; };
+  var API={ parts:[], active:false, auto:{}, DWELL:3000, paused:false };
+  try{ API.paused=localStorage.getItem("ts_motion")==="paused"; }catch(e){}
+  window.__tsMotionPaused=API.paused; document.documentElement.classList.toggle("ts-motion-paused",API.paused);
+
+  /* ---------- Launcher star ripple ---------- */
+  (function(){
+    var last=0;
+    function ripple(el){ var now=Date.now(); if(now-last<450) return; last=now; if(!el) return; var r=el.getBoundingClientRect(); if(!r.width) return;
+      var n=document.createElement("span"); n.className="ts-ripple"; n.setAttribute("aria-hidden","true"); n.innerHTML='<i class="rg"></i><i class="rg b"></i><i class="st"></i>';
+      n.style.transform="translate("+(r.left+r.width/2).toFixed(1)+"px,"+(r.top+r.height/2).toFixed(1)+"px)"; document.body.appendChild(n); API.ripples=(API.ripples||0)+1;
+      setTimeout(function(){ n.remove(); },1100); }
+    var btn=$("#starlaBtn"), hub=$(".mdock-hub");
+    if(btn) btn.addEventListener("click",function(){ ripple($(".st-cap-logo",btn)||btn); },true);
+    if(hub) hub.addEventListener("click",function(){ ripple(hub); },true);
+  })();
+
+  function visibleWatch(el,cb){ if(!("IntersectionObserver" in window)){ cb(true); return { disconnect:function(){} }; } var io=new IntersectionObserver(function(es){ cb(es[es.length-1].isIntersecting); },{threshold:.12}); io.observe(el); return io; }
+  function rescueFocus(node,fallback){ if(node&&node.contains(document.activeElement)&&fallback){ if(!fallback.hasAttribute("tabindex")){ fallback.setAttribute("tabindex","-1"); fallback.dataset.tsTab="1"; } try{ fallback.focus({preventScroll:true}); }catch(e){} } }
+  function ppHtml(){ return '<button type="button" class="ts-pp" aria-pressed="false"><i aria-hidden="true">❚❚</i><span class="sr-only"></span></button>'; }
+  function ppPaint(b,paused){ if(!b) return; b.setAttribute("aria-pressed",String(paused)); $("i",b).textContent=paused?"▶":"❚❚"; $(".sr-only",b).innerHTML=paused?bi("Play card motion","تشغيل حركة البطاقات"):bi("Pause card motion","إيقاف حركة البطاقات"); }
+
+  /* ---------- Shared snap carousel ----------
+     o.all      : active at every size (otherwise mobile only)
+     o.cls      : class that carries the layout ("ts-peek" mobile, "ts-row" desktop row)
+     o.auto     : 3 s dwell after each transition completes, looping in the original order
+     o.items    : selector for the children that are cards (others are left alone)
+     o.adopt    : elements moved in on enable and put back on disable
+     o.hold     : selector; touching it (a map) holds autoplay
+     o.active   : class kept on the current card on mobile (existing styling hook) */
+  function Carousel(sel,o){ o=o||{}; var track=$(sel); if(!track) return null;
+    var nav,cards=[],idx=0,raf=0,io,vis=false,timer=0,settleT=0,scrollT=0,mvT=0,fingers=0,userPaused=false,kb=false,down=false,holdUntil=0,autoMoving=false,moved=[],saved={},L=[],on=false,center=false;
+    function add(t,ev,fn,opt){ t.addEventListener(ev,fn,opt); L.push([t,ev,fn,opt]); }
+    function collect(){ cards=$$(":scope > "+(o.items||"*"),track).filter(function(c){ return !c.classList.contains("ts-nav")&&!c.classList.contains("hidden")&&c.getClientRects().length>0; }); if(!cards.length) cards=$$(":scope > "+(o.items||"*"),track).filter(function(c){ return !c.classList.contains("hidden"); }); center=!!cards[0]&&/center/.test(getComputedStyle(cards[0]).scrollSnapAlign||""); }
+    function off(c){ var t=track.getBoundingClientRect(), r=c.getBoundingClientRect(); if(center) return (r.left+r.width/2)-(t.left+t.width/2); var pad=parseFloat(getComputedStyle(track).scrollPaddingInlineStart)||0; return isRtl()?r.right-(t.right-pad):r.left-(t.left+pad); }
+    function nearest(){ var best=0,bd=1e9; cards.forEach(function(c,k){ var d=Math.abs(off(c)); if(d<bd){ bd=d; best=k; } }); return best; }
+    function atEnd(){ var max=track.scrollWidth-track.clientWidth; return max>2&&Math.abs(track.scrollLeft)>=max-2; }
+    function running(){ return !!o.auto&&on&&!RM.matches&&!API.paused; }
+    function paint(){ if(!cards.length) return; idx=nearest();
+      if(o.active) cards.forEach(function(c,k){ c.classList.toggle(o.active,k===idx&&MOB.matches); });
+      track.dataset.tsIndex=String(idx); track.dataset.tsAuto=running()?"on":"off"; if(!nav) return; var pos=$(".ts-pos",nav), txt=(idx+1)+" / "+cards.length; if(pos.textContent!==txt) pos.textContent=txt;
+      $(".prev",nav).disabled=!o.auto&&idx<=0; $(".next",nav).disabled=!o.auto&&(idx>=cards.length-1||atEnd()); ppPaint($(".ts-pp",nav),userPaused); }
+    function live(v){ if(nav) $(".ts-pos",nav).setAttribute("aria-live",v); }
+    function unmove(){ clearTimeout(mvT); track.classList.remove("ts-moving"); }
+    function go(k,smooth){ if(!cards.length) return; var n=cards.length; k=((k%n)+n)%n; var d=off(cards[k]); if(Math.abs(d)<1) return; track.classList.add("ts-moving"); clearTimeout(mvT); mvT=setTimeout(unmove,1500); track.scrollBy({left:d,behavior:(RM.matches||smooth===false)?"auto":"smooth"}); }
+    function selecting(){ try{ var s=getSelection(); return !!s&&!s.isCollapsed&&!!s.anchorNode&&track.contains(s.anchorNode); }catch(e){ return false; } }
+    function schedule(ms){ clearTimeout(timer); if(!o.auto||!on) return; timer=setTimeout(tick,ms); }
+    function tick(){ if(!on) return; if(!running()||!vis||document.hidden||cards.length<2){ paint(); return; }
+      if(kb||down||performance.now()<holdUntil||selecting()){ schedule(1000); return; }
+      autoMoving=true; live("off"); var k=(atEnd()||idx>=cards.length-1)?0:idx+1; go(k); (API.auto[sel]=API.auto[sel]||[]).push(Math.round(performance.now())); clearTimeout(settleT); settleT=setTimeout(settled,1300); }
+    function settled(){ clearTimeout(settleT); unmove(); if(!autoMoving) return; autoMoving=false; paint(); schedule(API.DWELL); }   /* the dwell starts once the card has arrived */
+    function onScroll(){ cancelAnimationFrame(raf); raf=requestAnimationFrame(paint); if(!autoMoving){ clearTimeout(timer); clearTimeout(scrollT); scrollT=setTimeout(function(){ schedule(API.DWELL); },180); } }
+    function manual(d){ live("polite"); autoMoving=false; clearTimeout(settleT); clearTimeout(timer); var k=idx+d; if(o.auto&&d>0&&(atEnd()||idx>=cards.length-1)) k=0; go(k); }
+    var me={ name:sel, el:track, all:!!o.all, on:false,
+      enable:function(){ on=me.on=true; (o.adopt||[]).slice().reverse().forEach(function(a){ var el=$(a); if(el&&el.parentNode!==track){ var ph=document.createComment("ts-home"); el.parentNode.insertBefore(ph,el); track.insertBefore(el,track.firstChild); moved.push([el,ph]); } });
+        track.classList.add(o.cls||"ts-peek"); collect();
+        ["role","aria-roledescription","aria-label","tabindex"].forEach(function(a){ saved[a]=track.getAttribute(a); }); track.setAttribute("role","group"); track.setAttribute("aria-roledescription","carousel"); if(o.label) track.setAttribute("aria-label",o.label);
+        nav=document.createElement("div"); nav.className="ts-nav"+(track.classList.contains("wrap")?" wrap-nav":""); nav.setAttribute("role","group"); nav.setAttribute("aria-label",(o.label||"Cards")+" navigation");
+        nav.innerHTML='<button type="button" class="prev"><i aria-hidden="true">‹</i><span class="sr-only">'+bi("Previous card","البطاقة السابقة")+'</span></button><span class="ts-pos" aria-live="off" aria-atomic="true"></span><button type="button" class="next"><i aria-hidden="true">›</i><span class="sr-only">'+bi("Next card","البطاقة التالية")+'</span></button>';
+        track.parentNode.insertBefore(nav,track.nextSibling);
+        add($(".prev",nav),"click",function(){ manual(-1); }); add($(".next",nav),"click",function(){ manual(1); });
+        
+        add(track,"scroll",onScroll,{passive:true}); if("onscrollend" in window) add(track,"scrollend",function(){ unmove(); if(autoMoving) settled(); },{passive:true});
+        add(track,"pointerdown",function(e){ down=true; unmove(); clearTimeout(timer); if(o.hold&&e.target.closest&&e.target.closest(o.hold)) holdUntil=performance.now()+8000; },{passive:true});
+        var up=function(e){ if(!down) return; if(fingers>0&&e&&e.type==="pointercancel") return;   /* a finger is still resting on the row */ down=false; schedule(API.DWELL); }; add(document,"pointerup",up,{passive:true}); add(document,"pointercancel",up,{passive:true});
+        add(track,"touchstart",function(e){ fingers=e.touches.length; down=true; clearTimeout(timer); },{passive:true}); var tEnd=function(e){ fingers=e.touches?e.touches.length:0; if(!fingers&&down){ down=false; schedule(API.DWELL); } }; add(track,"touchend",tEnd,{passive:true}); add(track,"touchcancel",tEnd,{passive:true});
+        if(o.hold) add(track,"wheel",function(e){ if(e.target.closest&&e.target.closest(o.hold)) holdUntil=performance.now()+8000; },{passive:true});
+        var fin=function(e){ var f=true; try{ f=e.target.matches(":focus-visible"); }catch(_){ } if(f){ kb=true; clearTimeout(timer); } }, fout=function(){ setTimeout(function(){ var a=document.activeElement; if(!track.contains(a)&&!(nav&&nav.contains(a))){ if(kb){ kb=false; schedule(API.DWELL); } } },0); };
+        add(track,"focusin",fin); add(nav,"focusin",fin); add(track,"focusout",fout); add(nav,"focusout",fout);
+        add(document,"visibilitychange",function(){ if(!document.hidden) schedule(API.DWELL); else clearTimeout(timer); });
+        if(o.refreshOn) add($(o.refreshOn)||document.createElement("i"),"click",function(){ setTimeout(me.refresh,520); });
+        track.scrollLeft=0; paint(); io=visibleWatch(track,function(v){ vis=v; if(v){ paint(); schedule(API.DWELL+Math.round(Math.random()*1400)); } else clearTimeout(timer); }); },
+      refresh:function(){ if(!on) return; autoMoving=false; clearTimeout(settleT); collect(); track.scrollLeft=0; paint(); schedule(API.DWELL+Math.round(Math.random()*1400)); },
+      kick:function(){ if(on){ paint(); schedule(API.DWELL); } },
+      disable:function(){ on=me.on=false; unmove(); clearTimeout(timer); clearTimeout(settleT); clearTimeout(scrollT); cancelAnimationFrame(raf); L.forEach(function(l){ l[0].removeEventListener(l[1],l[2],l[3]); }); L=[]; if(io){ io.disconnect(); io=null; } vis=false; kb=false; down=false; fingers=0; autoMoving=false; userPaused=false;
+        track.scrollLeft=0; var hadFocus=!!(nav&&nav.contains(document.activeElement)), first=cards[0]; if(nav){ nav.remove(); nav=null; }
+        if(o.active) cards.forEach(function(c){ c.classList.remove(o.active); });
+        track.classList.remove(o.cls||"ts-peek"); delete track.dataset.tsIndex; delete track.dataset.tsAuto; Object.keys(saved).forEach(function(a){ if(saved[a]===null) track.removeAttribute(a); else track.setAttribute(a,saved[a]); }); saved={};
+        track.scrollLeft=0; moved.forEach(function(m){ m[1].parentNode.insertBefore(m[0],m[1]); m[1].remove(); }); moved=[]; cards=[];
+        if(hadFocus&&first){ if(!first.hasAttribute("tabindex")){ first.setAttribute("tabindex","-1"); first.dataset.tsTab="1"; } try{ first.focus({preventScroll:true}); }catch(e){} } } };
+    return me; }
+
+  /* ---------- Drifting row ("Red Salute"): slow, automatic, swipeable; discreet pause ---------- */
+  function Drift(sel,o){ o=o||{}; var track=$(sel); if(!track) return null; var nav,raf=0,last=0,pos=0,dir=1,waitUntil=0,holdUntil=0,vis=false,kb=false,userPaused=false,down=false,io,saved={},L=[]; var SPEED=14;
+    function add(t,ev,fn,opt){ t.addEventListener(ev,fn,opt); L.push([t,ev,fn,opt]); }
+    function may(){ return !RM.matches&&!API.paused&&!kb&&!down&&vis&&!document.hidden; }
+    function tick(ts){ raf=0; if(!may()){ last=0; return; } var max=track.scrollWidth-track.clientWidth; if(max<=2){ last=0; return; }
+      if(ts<holdUntil||ts<waitUntil){ last=ts; pos=Math.abs(track.scrollLeft); raf=requestAnimationFrame(tick); return; }
+      var cur=Math.abs(track.scrollLeft); if(!last){ last=ts; pos=cur; } else if(Math.abs(cur-pos)>1.5){ pos=cur; } var dt=Math.min(250,ts-last); last=ts; pos+=dir*SPEED*dt/1000;
+      if(pos>=max){ pos=max; dir=-1; waitUntil=ts+1800; } else if(pos<=0){ pos=0; dir=1; waitUntil=ts+1800; }
+      track.scrollLeft=isRtl()?-pos:pos; API.driftTicks=(API.driftTicks||0)+1; raf=requestAnimationFrame(tick); }
+    function paint(){ if(me.on) track.dataset.tsDrift=may()?"running":"paused"; }
+    function kick(){ paint(); if(!raf&&may()){ last=0; raf=requestAnimationFrame(tick); } }
+    function touchHold(){ holdUntil=performance.now()+3500; }
+    var me={ name:sel, el:track, on:false, kick:kick,
+      enable:function(){ me.on=true; track.classList.add("ts-drift"); ["role","aria-label"].forEach(function(a){ saved[a]=track.getAttribute(a); }); if(!saved.role) track.setAttribute("role","group"); if(o.label&&!saved["aria-label"]) track.setAttribute("aria-label",o.label);
+        
+        
+        add(track,"pointerdown",function(){ down=true; paint(); },{passive:true}); ["pointerup","pointercancel","pointerleave"].forEach(function(e){ add(track,e,function(){ if(down){ down=false; touchHold(); kick(); } },{passive:true}); });
+        add(track,"wheel",touchHold,{passive:true}); add(track,"touchmove",touchHold,{passive:true});
+        add(track,"focusin",function(){ kb=true; paint(); }); add(track,"focusout",function(){ kb=false; touchHold(); kick(); });
+        add(document,"visibilitychange",kick); io=visibleWatch(track,function(v){ vis=v; kick(); }); dir=1; pos=0; track.scrollLeft=0; userPaused=false; paint(); kick(); },
+      refresh:function(){ if(!me.on) return; pos=0; dir=1; track.scrollLeft=0; kick(); },
+      disable:function(){ me.on=false; cancelAnimationFrame(raf); raf=0; if(io) io.disconnect(); L.forEach(function(l){ l[0].removeEventListener(l[1],l[2],l[3]); }); L=[]; if(nav){ rescueFocus(nav,track.firstElementChild); nav.remove(); nav=null; }
+        track.scrollLeft=0; track.classList.remove("ts-drift"); delete track.dataset.tsDrift; Object.keys(saved).forEach(function(a){ if(saved[a]===null) track.removeAttribute(a); else track.setAttribute(a,saved[a]); }); saved={}; track.scrollLeft=0; vis=false; kb=false; down=false; } };
+    return me; }
+
+  /* ---------- Decorative barrel spin in a grid (Home → Industries timing). Never hides content, never changes state. ---------- */
+  function SpinGrid(sel,o){ o=o||{}; var grid=$(sel); if(!grid) return null; var items=[],T=[],L=[],vis=false,quietUntil=0,cool=new WeakMap(),io;
+    function later(fn,ms){ var id=setTimeout(fn,ms); T.push(id); return id; }
+    function spin(p){ if(RM.matches) return; p.classList.remove("ts-spin"); void p.offsetWidth; p.classList.add("ts-spin"); later(function(){ p.classList.remove("ts-spin"); },900); }
+    function loop(){ later(loop,o.every||3400); if(API.paused||RM.matches||!vis||document.hidden||Date.now()<quietUntil||grid.contains(document.activeElement)) return; if(items.some(function(p){ return p.classList.contains("ts-spin"); })) return;
+      var pool=items.filter(function(p){ return p.getAttribute("aria-checked")!=="true"&&!((cool.get(p)||0)>Date.now()); }); if(!pool.length) return; var p=pool[Math.floor(Math.random()*pool.length)]; cool.set(p,Date.now()+6850); API.autoSpins=(API.autoSpins||0)+1; (API.spins=API.spins||{})[sel]=(API.spins[sel]||0)+1; spin(p); }
+    var me={ name:sel, el:grid, on:false,
+      enable:function(){ me.on=true; items=$$(":scope > "+(o.item||".ct-pill"),grid); grid.classList.add(o.cls||"ts-spingrid");
+        var onClick=function(e){ if(e.target.closest("a")) return; var p=e.target.closest(o.item||".ct-pill"); if(!p||!grid.contains(p)) return; quietUntil=Date.now()+8000; spin(p); }; grid.addEventListener("click",onClick); L.push([grid,"click",onClick]);
+        var onDown=function(){ quietUntil=Date.now()+8000; }; grid.addEventListener("pointerdown",onDown,{passive:true}); L.push([grid,"pointerdown",onDown,{passive:true}]);
+        io=visibleWatch(grid,function(v){ vis=v; }); later(loop,2600); },
+      refresh:function(){},
+      disable:function(){ me.on=false; T.forEach(clearTimeout); T=[]; L.forEach(function(l){ l[0].removeEventListener(l[1],l[2],l[3]); }); L=[]; if(io) io.disconnect(); vis=false; items.forEach(function(p){ p.classList.remove("ts-spin"); }); grid.classList.remove(o.cls||"ts-spingrid"); items=[]; } };
+    return me; }
+
+  /* Home → Workforce in action: on mobile the filter row is hidden, so make sure no earlier filter choice is still applied. */
+  function MediaAll(){ var me={ name:"#media-filters", el:$("#media-filters"), on:false,
+      enable:function(){ me.on=true; var f=$("#media-filters"); if(!f) return; var all=$('button[data-cat="all"]',f); if(all&&all.getAttribute("aria-pressed")!=="true") all.click(); rescueFocus(f,$("#home-media")); },
+      refresh:function(){}, disable:function(){ me.on=false; } }; return me; }
+
+  /* ---------- Journey arrow (Careers → Application journey): same glyph, colour, glow, downward turn, 1.1 s glide, dot ripple ---------- */
+  function Arrow(sel,o){ o=o||{}; var tl=$(sel); if(!tl) return null; var ar=null,T=[],run=false,io,vis=false,L=[],dotSel=o.dot||".hw-dot";
+    function later(fn,ms){ T.push(setTimeout(fn,ms)); } function clearAll(){ T.forEach(clearTimeout); T=[]; }
+    function loop(){ if(RM.matches||!ar) return; var dots=$$(dotSel,tl); if(dots.length<2) return; var o2=tl.getBoundingClientRect(); var pos=dots.map(function(d){ var r=d.getBoundingClientRect(); return {x:r.left-o2.left+r.width/2,y:r.top-o2.top+r.height/2}; }); var i=0;
+      var place=function(k){ ar.style.left=pos[k].x+"px"; ar.style.top=pos[k].y+"px"; }; ar.style.transition="none"; place(0); requestAnimationFrame(function(){ if(ar) ar.style.transition=""; });
+      var repel=function(k){ dots[k].classList.remove("ts-repel"); void dots[k].offsetWidth; dots[k].classList.add("ts-repel"); };
+      var go=function(){ if(!run) return; if(i>=pos.length-1){ later(function(){ i=0; ar.style.transition="none"; place(0); requestAnimationFrame(function(){ if(!ar) return; ar.style.transition=""; later(function(){ repel(0); later(go,400); },200); }); },4000); return; } i++; place(i); later(function(){ repel(i); later(go,250); },1100); };
+      later(function(){ repel(0); later(go,400); },400); }
+    function start(){ if(run||!vis||document.hidden) return; run=true; clearAll(); loop(); } function stop(){ run=false; clearAll(); } function restart(){ stop(); start(); }
+    var me={ name:sel, el:tl, on:false,
+      enable:function(){ me.on=true; tl.classList.add("ts-arrowed"); if(getComputedStyle(tl).position==="static"){ tl.style.position="relative"; tl.dataset.tsPos="1"; }
+        ar=document.createElement("span"); ar.className="journey-flight-arrow"; ar.setAttribute("aria-hidden","true"); ar.textContent="➵"; tl.insertBefore(ar,tl.firstChild);
+        io=visibleWatch(tl,function(v){ vis=v; v?start():stop(); }); var vc=function(){ document.hidden?stop():start(); }; document.addEventListener("visibilitychange",vc); L.push([document,"visibilitychange",vc]); var rs=function(){ if(run) restart(); }; addEventListener("resize",rs,{passive:true}); L.push([window,"resize",rs,{passive:true}]); },
+      refresh:function(){ if(run) restart(); },
+      disable:function(){ me.on=false; stop(); if(io) io.disconnect(); vis=false; L.forEach(function(l){ l[0].removeEventListener(l[1],l[2],l[3]); }); L=[]; $$(dotSel,tl).forEach(function(d){ d.classList.remove("ts-repel"); }); if(ar){ ar.remove(); ar=null; } tl.classList.remove("ts-arrowed"); if(tl.dataset.tsPos){ tl.style.position=""; delete tl.dataset.tsPos; } } };
+    return me; }
+
+  /* ---------- Page curl for Home → How engagement works ----------
+     The journey script already decides which step is lit / shown and when; this only watches those class changes.
+     Mobile (one card at a time): the outgoing card curls away from its lower corner and uncovers the next one.
+     Desktop (all seven visible): when the flight lights a step, a blank sheet over that card turns away.
+     The flap and the sheet are empty decorative elements; no text is duplicated, and nothing is hidden if this never runs. */
+  (function(){ var list=$("#home-steps"); if(!list||!("MutationObserver" in window)) return; var items=$$(":scope > li",list); if(items.length<2) return; var shown=-1, lit=-1, busy=new WeakMap(), cancel=new WeakMap();
+    function ease(t){ return t<.5?4*t*t*t:1-Math.pow(-2*t+2,3)/2; }
+    function curl(el,ms,done,keep){ if(busy.get(el)) return; busy.set(el,1); cancel.delete(el); var w=el.offsetWidth, h=el.offsetHeight, flap=document.createElement("span"); flap.className="ts-curl-flap"; flap.setAttribute("aria-hidden","true"); el.appendChild(flap); var t0=0, tStart=performance.now(); API.curls=(API.curls||0)+1;
+      function f(ts){ if(!t0) t0=ts; var p=cancel.get(el)?1:Math.min(1,(ts-t0)/ms), e=ease(p), Lg=e*(w+h), d=w+h-Lg; var a=Math.min(d,w), b=Math.max(0,d-w), c=Math.max(0,d-h), e2=Math.min(d,h);
+        el.style.clipPath="polygon(0 0,"+a.toFixed(1)+"px 0,"+a.toFixed(1)+"px "+b.toFixed(1)+"px,"+c.toFixed(1)+"px "+e2.toFixed(1)+"px,0 "+e2.toFixed(1)+"px)"; el.style.webkitClipPath=el.style.clipPath;
+        flap.style.width=flap.style.height=Lg.toFixed(1)+"px"; flap.style.opacity=p>.78?String(Math.max(0,1-(p-.78)/.22)):"1";
+        if(p<1) requestAnimationFrame(f); else { flap.remove(); var gone=keep&&!cancel.get(el); el.style.clipPath=el.style.webkitClipPath=gone?"polygon(0 0,0 0,0 0)":""; (API.curlLog=API.curlLog||[]).push({kind:keep?"card":"sheet",ms:Math.round(performance.now()-tStart),cancelled:!!cancel.get(el),w:w,h:h}); busy.delete(el); cancel.delete(el); if(done) done(); if(gone) setTimeout(function(){ if(!busy.get(el)){ el.style.clipPath=""; el.style.webkitClipPath=""; } },650); } }
+      requestAnimationFrame(f); }
+    function curlAway(li){ li.classList.add("ts-curling"); curl(li,720,function(){ li.classList.remove("ts-curling"); },true); }
+    function sheet(li){ if(li.querySelector(":scope > .ts-curl-sheet")||li.matches(":hover")||li.contains(document.activeElement)) return; var sh=document.createElement("span"); sh.className="ts-curl-sheet"; sh.setAttribute("aria-hidden","true"); li.classList.add("ts-has-sheet"); li.appendChild(sh); curl(sh,820,function(){ sh.remove(); li.classList.remove("ts-has-sheet"); }); }
+    function scan(){ var s=items.findIndex(function(li){ return li.classList.contains("shown"); }), l=items.findIndex(function(li){ return li.classList.contains("lit"); }); var focus=list.classList.contains("focus-mode");
+      if(s>=0&&s!==shown){ if(busy.get(items[s])) cancel.set(items[s],1); else { items[s].style.clipPath=""; items[s].style.webkitClipPath=""; } }
+      if(focus){ if(s!==shown&&shown>=0&&s>=0&&!RM.matches&&!document.hidden) curlAway(items[shown]); }
+      else if(l!==lit&&l>=0&&!RM.matches&&!document.hidden&&!MOB.matches) sheet(items[l]);
+      shown=s; lit=l; }
+    shown=items.findIndex(function(li){ return li.classList.contains("shown"); });
+    new MutationObserver(scan).observe(list,{attributes:true,attributeFilter:["class"],subtree:true});
+  })();
+
+
+  /* ---------- Talent lifecycle, mobile: Clean Vertical Journey ----------
+     One content source: the existing four stages (<ol id="flowStages">) are the cards. This adds, on mobile only,
+     a number, the sub-steps (the diagram's own labels, in their numbered order), the logo hub and the workforce grouping,
+     and removes all of it again on desktop. Progress shown here is the reader's position in the illustration, nothing more. */
+  function FlowJourney(){ var card=$("#flowCard"), list=$("#flowStages"); if(!card||!list) return null; var added=[],L=[],io,ro,raf=0,active=-1,counted=false,cntRaf=0;
+    var STEPS=[ [["Talent pool","مجمّع الكفاءات"],["Sourcing","التوفير"]], [["Starla vetting","تدقيق ستارلا"]], [["Ready reserve","احتياطي جاهز"],["Talent onboarding","إلحاق الكفاءات"],["Replacement","الاستبدال"]], [["Deployed Star workforce","قوة ستار العاملة المنشورة"],["Continuous management","إدارة مستمرة"]] ];
+    var CATS=[["Logistics","اللوجستيات"],["Hospitality","الضيافة"],["Construction","الإنشاءات"],["Other sectors","قطاعات أخرى"]];
+    function add(t,ev,fn,opt){ t.addEventListener(ev,fn,opt); L.push([t,ev,fn,opt]); }
+    function el(tag,cls,html,hidden){ var e=document.createElement(tag); e.className=cls; if(html!=null) e.innerHTML=html; if(hidden) e.setAttribute("aria-hidden","true"); added.push(e); return e; }
+    function hexes(){ var pts="0,-11 9.5,-5.5 9.5,5.5 0,11 -9.5,5.5 -9.5,-5.5", pos=[[22,14],[46,14],[70,14],[94,14],[34,34],[58,34],[82,34]]; return '<svg class="vj-hex" viewBox="0 0 116 48" width="116" height="48" aria-hidden="true" focusable="false">'+pos.map(function(p,i){ return '<polygon class="h'+(i%3)+'" transform="translate('+p[0]+','+p[1]+')" points="'+pts+'"/>'; }).join("")+'</svg>'; }
+    function measure(){ var items=$$(":scope > li",list); if(!items.length) return; var first=$(".vj-dot",items[0]), last=$(".vj-dot",items[items.length-1]); if(!first||!last) return; /* layout boxes, so a card that is mid-reveal (transformed) does not skew the spine */ var cy=function(li,d){ return li.offsetTop+d.offsetTop+d.offsetHeight/2; }; var top=cy(items[0],first), h=Math.max(0,cy(items[items.length-1],last)-top)+30; list.style.setProperty("--vj-top",top.toFixed(1)+"px"); list.style.setProperty("--vj-h",h.toFixed(1)+"px"); }
+    function count(){ if(counted) return; counted=true; var v=$(".vj-hub-n",card), hub=$(".vj-hub",card); if(!v||!hub) return; if(RM.matches){ v.textContent="100"; hub.style.setProperty("--vj-p","1"); hub.classList.add("is-done"); return; }
+      hub.classList.add("is-gathering"); var t0=0, dur=1700; function f(ts){ if(!t0) t0=ts; var p=Math.min(1,(ts-t0)/dur), e=1-Math.pow(1-p,3); v.textContent=String(Math.round(e*100)); hub.style.setProperty("--vj-p",e.toFixed(3)); if(p<1) cntRaf=requestAnimationFrame(f); else { hub.classList.remove("is-gathering"); hub.classList.add("is-done","is-release"); setTimeout(function(){ hub.classList.remove("is-release"); },1200); } } cntRaf=requestAnimationFrame(f); }
+    function update(){ raf=0; if(!me.on) return; var items=$$(":scope > li",list), vh=innerHeight||1, line=vh*0.62, lr=list.getBoundingClientRect(); if(!lr.height) return;   /* section not rendered (another page is showing) */ var top=parseFloat(list.style.getPropertyValue("--vj-top"))||0, h=parseFloat(list.style.getPropertyValue("--vj-h"))||1; var p=Math.max(0,Math.min(1,(line-(lr.top+top))/h)); list.style.setProperty("--vj-p",p.toFixed(3));
+      var st=-1; items.forEach(function(li,i){ var d=$(".vj-dot",li); if(d&&lr.top+li.offsetTop+d.offsetTop+7<=line) st=i; }); if(st<0&&lr.top<vh) st=0;
+      items.forEach(function(li,i){ li.classList.toggle("active",i===st); li.classList.toggle("done",i<st); }); card.dataset.stage=String(Math.max(0,st)); card.style.setProperty("--vj-par",(Math.max(-1,Math.min(1,(lr.top-vh/2)/vh))*-10).toFixed(1)+"px");
+      if(st>=1) count();
+      if(st!==active&&st>=0){ active=st; var sr=$("#flowSr"), t=$("strong",items[st]); if(sr&&t) sr.textContent=(document.documentElement.lang==="ar"?"المرحلة ":"Stage ")+(st+1)+" / "+items.length+" — "+t.textContent; } }
+    function onScroll(){ if(!raf) raf=requestAnimationFrame(update); }
+    var me={ name:"#flowCard", el:card, on:false,
+      enable:function(){ me.on=true; counted=false; active=-1; card.classList.add("vj"); var items=$$(":scope > li",list);
+        items.forEach(function(li,i){ li.insertBefore(el("span","vj-dot",null,true),li.firstChild); li.insertBefore(el("span","vj-num",(i<9?"0":"")+(i+1),true),li.firstChild);
+          var cta=$(".lifecycle-cta-btn",li); var ul=el("ul","vj-steps",(STEPS[i]||[]).map(function(s){ return "<li>"+bi(s[0],s[1])+"</li>"; }).join("")); ul.setAttribute("aria-label",document.documentElement.lang==="ar"?"خطوات هذه المرحلة":"Steps in this stage"); li.insertBefore(ul,cta);
+          if(i===1){ li.insertBefore(el("div","vj-hub",'<span class="vj-hub-ring"><span class="vj-hub-logo"><svg viewBox="0 0 160 160" focusable="false"><use href="#mark"/></svg></span><i class="p p1"></i><i class="p p2"></i><i class="p p3"></i><i class="p p4"></i><i class="p p5"></i><i class="p p6"></i></span><span class="vj-hub-txt"><span class="vj-hub-k">'+bi("Illustrative progress","تقدّم توضيحي")+'</span><span class="vj-hub-v"><b class="vj-hub-n">0</b>%</span></span>',true),ul); }
+          if(i===3){ var f=el("div","vj-force",hexes()+'<ul class="vj-cats">'+CATS.map(function(c){ return "<li>"+bi(c[0],c[1])+"</li>"; }).join("")+"</ul>"); $(".vj-cats",f).setAttribute("aria-label",document.documentElement.lang==="ar"?"فئات القطاعات":"Sector categories"); li.insertBefore(f,cta); } });
+        var sp=el("span","vj-spine",'<i class="vj-fill"></i><b class="vj-cap a"></b><b class="vj-cap z"></b><em class="vj-pt t1"></em><em class="vj-pt t2"></em><em class="vj-pt t3"></em>',true); list.insertBefore(sp,list.firstChild);
+        var note=el("p","vj-note",bi("Illustration of how we work. It does not show live recruitment, visa or deployment status.","رسم توضيحي لطريقة عملنا. لا يعرض حالة توظيف أو تأشيرات أو نشر مباشرة.")); list.parentNode.insertBefore(note,list.nextSibling);
+        if("IntersectionObserver" in window){ card.classList.add("vj-ready"); io=new IntersectionObserver(function(es){ es.forEach(function(e){ if(e.isIntersecting){ e.target.classList.add("vj-in"); } }); card.classList.toggle("vj-vis",es.some(function(e){ return e.isIntersecting; })||$$(":scope > li.vj-in",list).some(function(li){ var r=li.getBoundingClientRect(); return r.bottom>0&&r.top<innerHeight; })); },{threshold:.12,rootMargin:"0px 0px -6% 0px"}); items.forEach(function(li){ io.observe(li); }); }
+        if("ResizeObserver" in window){ ro=new ResizeObserver(function(){ measure(); onScroll(); }); ro.observe(list); }
+        add(window,"scroll",onScroll,{passive:true}); add(window,"resize",function(){ measure(); onScroll(); },{passive:true}); measure(); update(); },
+      refresh:function(){ if(!me.on) return; me.disable(); me.enable(); },
+      kick:function(){ if(me.on) onScroll(); },
+      disable:function(){ me.on=false; cancelAnimationFrame(raf); raf=0; cancelAnimationFrame(cntRaf); if(io){ io.disconnect(); io=null; } if(ro){ ro.disconnect(); ro=null; } L.forEach(function(l){ l[0].removeEventListener(l[1],l[2],l[3]); }); L=[];
+        added.forEach(function(e){ if(e.parentNode) e.parentNode.removeChild(e); }); added=[]; card.classList.remove("vj","vj-ready","vj-vis"); card.style.removeProperty("--vj-par"); ["--vj-top","--vj-h","--vj-p"].forEach(function(v){ list.style.removeProperty(v); });
+        $$(":scope > li",list).forEach(function(li){ li.classList.remove("vj-in","active","done"); }); } };
+    return me; }
+
+  var parts=[
+    FlowJourney(),
+    Carousel("#home-services",{all:true,cls:"ts-row",auto:true,label:"Services",items:".service-card",active:"is-active"}),
+    Carousel("#home-media",{all:true,cls:"ts-row",auto:true,label:"Workforce in action",items:".mcard",refreshOn:"#media-filters"}),
+    Carousel(".ftr .eco-grid.eco-squares",{auto:true,label:"Ecosystem, Star Pulse and Starla cards"}),
+    Carousel("#svPortfolio",{auto:true,label:"Service portfolio"}),
+    Carousel("#inGrid",{auto:true,label:"Industry explorer"}),
+    Carousel("#coStage",{auto:true,label:"Partnership opportunities",items:".co-card"}),
+    Carousel("#view-careers .cj-grid",{auto:true,label:"Opportunities"}),
+    Carousel("#view-careers .cj-two",{auto:true,label:"Careers information",adopt:["#cj-internal"]}),
+    Carousel("#view-contact .ct-grid",{auto:true,label:"Contact pathways"}),
+    Carousel("#lw-modules .lw-grid",{auto:true,label:"Information modules"}),
+    Carousel("#view-contact .ct-two",{auto:true,label:"Our company and map",hold:"#ctMapStage, .ct-map-ctl"}),
+    Drift("#view-services .sv-ind-grid",{label:"Relevant sectors"}),
+    Drift("#view-collaborate .co-pillars",{label:"Partnership principles"}),
+    Drift("#view-careers .cj-values",{label:"Our values"}),
+    SpinGrid("#view-services .sv-whygrid",{cls:"ts-wiggy",item:".ab-value",every:2600}),
+    SpinGrid("#ctIntent"),
+    MediaAll(),
+    Arrow("#hwTimeline"), Arrow("#view-collaborate .co-timeline"), Arrow("#cpSteps",{dot:".cp-step-n"})
+  ].filter(Boolean);
+  API.parts=parts.map(function(p){ return p.name; });
+  function apply(){ API.active=MOB.matches; parts.forEach(function(p){ var want=p.all?true:MOB.matches; try{ if(want&&!p.on) p.enable(); else if(!want&&p.on) p.disable(); else if(p.on&&p.all) p.refresh(); }catch(e){ if(window.console) console.error("[ts-motion]",p.name,e); } }); }
+  function refresh(){ parts.forEach(function(p){ if(p.on){ try{ p.refresh(); }catch(e){} } }); }
+  watch(MOB,apply); watch(RM,function(){ parts.forEach(function(p){ if(p.on&&p.kick) p.kick(); }); });
+  addEventListener("orientationchange",function(){ setTimeout(refresh,250); });
+  var lb=document.getElementById("langBtn"); if(lb) lb.addEventListener("click",function(){ setTimeout(refresh,160); });
+  function paintMotion(){ $$(".ts-motion-btn").forEach(function(b){ b.setAttribute("aria-pressed",String(API.paused)); var t=$(".ts-motion-t",b); if(t) t.innerHTML=API.paused?bi("Play moving cards","تشغيل حركة البطاقات"):bi("Pause moving cards","إيقاف حركة البطاقات"); var i=$(".ts-motion-i",b); if(i) i.textContent=API.paused?"▶":"❚❚"; }); }
+  function setPaused(v){ API.paused=!!v; window.__tsMotionPaused=API.paused; try{ if(API.paused) localStorage.setItem("ts_motion","paused"); else localStorage.removeItem("ts_motion"); }catch(e){} document.documentElement.classList.toggle("ts-motion-paused",API.paused); paintMotion(); parts.forEach(function(p){ if(p.on&&p.kick){ try{ p.kick(); }catch(e){} } }); try{ dispatchEvent(new Event("ts-motion")); }catch(e){} }
+  API.setPaused=setPaused;
+  $$(".ts-motion-btn").forEach(function(b){ b.addEventListener("click",function(){ setPaused(!API.paused); }); }); paintMotion();
+  window.__tsMobile=API; apply();
 })();
 </script>
 </body>
